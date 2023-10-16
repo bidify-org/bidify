@@ -35,7 +35,7 @@ class SocialAuthController extends Controller
         // If the user has already signed up with this social account before
         // we can just log them in.
         if ($account) {
-            return $this->createToken($account->user);
+            return $this->issueToken($account->user);
         }
 
         // Otherwise, if no user has signed up with this social account before
@@ -61,10 +61,10 @@ class SocialAuthController extends Controller
             'provider_user_id' => $socialUser->id,
         ]);
 
-        return $this->createToken($user);
+        return $this->issueToken($user);
     }
 
-    private function createToken(User $user)
+    private function issueToken(User $user)
     {
         $userToken = $user->createToken('authToken')->plainTextToken;
 
