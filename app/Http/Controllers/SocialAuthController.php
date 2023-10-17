@@ -66,7 +66,7 @@ class SocialAuthController extends Controller
 
     private function issueToken(User $user)
     {
-        $userToken = $user->createToken('authToken')->plainTextToken;
+        $userToken = $user->createToken('access_token')->plainTextToken;
 
         return response()->json([
             'user' => $user,
