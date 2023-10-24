@@ -27,5 +27,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get("/redirect", [SocialAuthController::class, 'redirect']);
         Route::get("/callback", [SocialAuthController::class, 'callback']);
+
+        Route::middleware('auth:sanctum')->group(function () {
+            Route::get("/verify", [AuthController::class, 'verify']);
+            Route::get("/logout", [AuthController::class, 'logout']);
+        });
     });
 });

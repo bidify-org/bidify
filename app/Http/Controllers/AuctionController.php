@@ -12,8 +12,8 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        $data = Auction::orderBy('created_at', 'desc')->get();
-        return view('auction')->with('data', $data);
+        $data = Auction::orderBy('ends_at', 'desc')->get();
+        return view('example.auction')->with('data', $data);
     }
 
     /**

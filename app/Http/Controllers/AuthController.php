@@ -67,4 +67,21 @@ class AuthController extends Controller
             'token' => $userToken,
         ], 200);
     }
+
+    public function verify(Request $request)
+    {
+        return response()->json([
+            'message' => 'Successfully verified',
+            'user' => $request->user(),
+        ], 200);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Successfully logged out',
+        ], 200);
+    }
 }

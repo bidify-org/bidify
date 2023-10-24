@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(SocialAccount::class);
     }
+
+    public function auctions()
+    {
+        return $this->hasMany(Auction::class, 'seller_id');
+    }
+
+    public function wonAuctions()
+    {
+        return $this->hasMany(Auction::class, 'winner_id');
+    }
 }
