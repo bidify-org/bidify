@@ -21,7 +21,10 @@ class AuctionSeeder extends Seeder
                 'image_url' => fake()->imageUrl,
                 'description' => fake()->paragraph,
                 'asking_price' => rand(1, 9999999),
-                'ends_at' => Carbon::now()->subDays(rand(1, 365)),
+                'ends_at' => Carbon::now()
+                    ->subDays(rand(1, 365))
+                    ->addYears(rand(1, 3))
+                    ->addMonths(rand(1, 12)),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
