@@ -26,7 +26,12 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $user = User::create($validation->validated());
+        $user = User::create([
+            'username' => $validation->validated()['username'],
+            'name' => $validation->validated()['name'],
+            'email' => $validation->validated()['email'],
+            'password' => bcrypt($validation->validated()['password']),
+        ]);
         $userToken = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
@@ -34,6 +39,11 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $userToken,
         ], 201);
+    }
+
+    public function loginForm()
+    {
+        return view('auth.login');
     }
 
     public function login(Request $request)

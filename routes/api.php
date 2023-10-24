@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\SocialAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,19 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    Route::prefix("/auth")->group(function () {
-        Route::post("/login", [AuthController::class, 'login']);
-        Route::post("/register", [AuthController::class, 'register']);
-
-        Route::get("/redirect", [SocialAuthController::class, 'redirect']);
-        Route::get("/callback", [SocialAuthController::class, 'callback']);
-
-        Route::middleware('auth:sanctum')->group(function () {
-            Route::get("/verify", [AuthController::class, 'verify']);
-            Route::get("/logout", [AuthController::class, 'logout']);
-        });
-    });
 });

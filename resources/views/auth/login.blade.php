@@ -7,7 +7,12 @@
     </div>
     <div class="flex justify-center items-center h-screen">
         <div class="bg-[#fff] flex flex-col px-[43px] py-[50px] w-[503px] max-w-lg  rounded-[40px]">
+
+            @if ($errors->any())
+            <h4>{{$errors->first()}}</h4>
+            @endif
             <form>
+                @csrf
                 <div class="flex flex-col mb-[36px]">
                     <h3 class="font-body text-main_03 "> Login</h3>
                     <p class="font-body text-detail">
@@ -47,13 +52,20 @@
                     <div class="w-full border-b border-gray-400"></div>
                 </div>
                 <div class="flex flex-col flex-start gap-2 my-4">
-                    <button
+                    <a href="/auth/google/redirect"
                         class="flex justify-center items-center h-[52px] font-body text-body text-black border-[1px] border-primary-blue rounded-[10px] bg-white">
                         <img src="../src/assets/google.svg" class="fill-current w-[30px] h-[30px] mr-2 "></img>
                         <span class="font-body text-detail">
                             Sign In with Google
                         </span>
-                    </button>
+                    </a>
+                    <a href="/auth/github/redirect"
+                        class="flex justify-center items-center h-[52px] font-body text-body text-black border-[1px] border-primary-blue rounded-[10px] bg-white">
+                        <img src="../src/assets/google.svg" class="fill-current w-[30px] h-[30px] mr-2 "></img>
+                        <span class="font-body text-detail">
+                            Sign In with GitHub
+                        </span>
+                    </a>
                 </div>
             </form>
         </div>

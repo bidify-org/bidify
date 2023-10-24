@@ -9,8 +9,8 @@ class SocialAccount extends Model
 {
     use HasFactory;
 
-    final const SERVICE_GOOGLE = 'google';
-    final const SERVICE_GITHUB = 'github';
+    public const SERVICE_GOOGLE = 'google';
+    public const SERVICE_GITHUB = 'github';
 
     protected $fillable = [
         'provider',
