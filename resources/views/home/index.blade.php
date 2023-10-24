@@ -2,6 +2,12 @@
     <main class="font-body container mx-auto px-12">
         <h1 class="text-9xl">Home</h1>
 
+        <a href="/logout">
+            <button class="w-32 h-12 text-white font-bold rounded-xl bg-red-500 hover:bg-red-700 duration-150">
+                Logout
+            </button>
+        </a>
+
         <!-- Authenticated user -->
         <h1 class="text-2xl">Welcome, {{ auth()->user()->username }}</h1>
 
