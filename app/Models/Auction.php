@@ -17,6 +17,8 @@ class Auction extends Model
         'image_url',
         'asking_price',
         'ends_at',
+        'created_at',
+        'updated_at'
     ];
 
     protected $casts = [

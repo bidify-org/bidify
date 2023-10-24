@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Auction;
 use Illuminate\Http\Request;
 
 class AuctionController extends Controller
@@ -11,7 +12,8 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        //
+        $data = Auction::orderBy('created_at', 'desc')->get();
+        return view('auction')->with('data', $data);
     }
 
     /**
