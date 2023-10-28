@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuctionStoreRequest;
 use App\Models\Auction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AuctionController extends Controller
 {
@@ -12,7 +14,7 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        $data = Auction::orderBy('ends_at', 'desc')->get();
+        $data = Auction::orderBy('created_at', 'desc')->get();
         return view('example.auction')->with('data', $data);
     }
 
@@ -21,15 +23,29 @@ class AuctionController extends Controller
      */
     public function create()
     {
-        //
+        return view('example.create-auction');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AuctionStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $auction = new Auction();
+
+        $auction->seller_id = auth()->user()->id;
+        $auction->title = $validated['title'];
+        $auction->description = $validated['description'];
+        $auction->asking_price = $validated['asking_price'];
+        $auction->ends_at = $validated['ends_at'];
+
+        $path = $request->file('image')->store('public/images');
+        $auction->image_url = Storage::url($path);
+        $auction->save();
+
+        return redirect()->route('auctions.index');
     }
 
     /**
@@ -37,7 +53,12 @@ class AuctionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $auction = Auction::find($id);
+
+        if (!$auction) {
+            abort(404);
+        }
+        return view('example.show-auction')->with('auction', $auction);
     }
 
     /**
@@ -61,6 +82,9 @@ class AuctionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $auction = Auction::find($id);
+
+        $auction->delete();
+        return redirect()->route('auctions.index')->with('success', 'Auction deleted successfully');
     }
 }

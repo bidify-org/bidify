@@ -33,4 +33,4 @@ Route::name('auth.')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::resource('auction', AuctionController::class);
+Route::resource('auctions', AuctionController::class);

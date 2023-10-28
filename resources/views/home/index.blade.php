@@ -1,6 +1,6 @@
 <x-layout>
     <main class="font-body container mx-auto px-12">
-        <h1 class="text-9xl">Home</h1>
+        <h1 class="my-12 font-body font-bold text-6xl text-gray-3">Home</h1>
 
         <a href="/logout">
             <button class="w-32 h-12 text-white font-bold rounded-xl bg-red-500 hover:bg-red-700 duration-150">
@@ -10,6 +10,15 @@
 
         <!-- Authenticated user -->
         <h1 class="text-2xl">Welcome, {{ auth()->user()->username }}</h1>
+        <h1 class="mt-6 font-bold text-xl">Links</h1>
+        <ul class="text-blue-500 underline">
+            <li>
+                <a href="/auctions">List all auctions</a>
+            </li>
+            <li>
+                <a href="/auctions/create">Create auctions</a>
+            </li>
+        </ul>
 
         <h1 class="mt-6 font-bold text-xl">User Details</h1>
         <ul>
@@ -18,7 +27,7 @@
             <li>Username: {{ auth()->user()->username }}</li>
         </ul>
 
-        <h1 class="mt-6 font-bold text-xl">User Auctions</h1>
+        <h1 class="mt-6 font-bold text-xl">My Auctions</h1>
         <ul>
             @foreach (auth()->user()->auctions as $auction)
             <div class="mb-4 mt-4 p-6 border border-gray-2 rounded-2xl">
@@ -29,7 +38,8 @@
                         <h1 class="text-xl md:text-4xl font-bold">Title: {{ $auction->title }}</h1>
                         <section>
                             <h2 class="text-lg">Seller: {{ $auction->seller->username}}</h2>
-                            <h2 class="text-lg">Winner: {{ $auction->winner->username}}</h2>
+                            <h2 class="text-lg">Winner: {{ $auction->winner ? $auction->winner->username : 'No winner
+                                yet' }}</h2>
                         </section>
 
                         <section>
