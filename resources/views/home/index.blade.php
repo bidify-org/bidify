@@ -42,7 +42,7 @@
                                     {{ $auction->winner
                                         ? $auction->winner->username
                                         : 'No winner
-                                                                                                                                                                                yet' }}
+                                                                                                                                                                                                                                                                                            yet' }}
                                 </h2>
                             </section>
 

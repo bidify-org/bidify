@@ -1,3 +1,3 @@
-<div class="container relative mx-auto px-4 md:px-12 lg:px-24">
+<div class="container relative mx-auto px-12">
     {{ $slot }}
 </div>
