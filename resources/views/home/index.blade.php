@@ -27,6 +27,18 @@
             <li>Username: {{ auth()->user()->username }}</li>
         </ul>
 
+        <div class="overflow-x-auto no-scrollbar flex mt-[25px] rounded-[10px]">
+            <x-bid-card ref="/test" img="/dummy/sell_1.png" title="Iphone 14 promeg dip perpel original mulus mantap"
+                price="750.000">
+            </x-bid-card>
+
+            {{-- <x-bid-card ref="/test" img="{{ $auction->image_url }}" title="{{ $auction->title }}"
+                price="@money($auction->asking_price)">
+            </x-bid-card> --}}
+        </div>
+
+
+
         <h1 class="mt-6 font-bold text-xl">My Auctions</h1>
         <ul>
             @foreach (auth()->user()->auctions as $auction)
@@ -42,7 +54,7 @@
                                     {{ $auction->winner
                                         ? $auction->winner->username
                                         : 'No winner
-                                                                                                                                                                                                                                                                                            yet' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                yet' }}
                                 </h2>
                             </section>
 
