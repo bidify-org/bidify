@@ -1,7 +1,7 @@
 function toggleNav() {
-    var isOpen = false;
-    var toggleButton = document.getElementById("toggleButton");
-    var container = document.getElementById("containerNav");
+    let isOpen = false;
+    const toggleButton = document.getElementById("toggleButton");
+    const container = document.getElementById("containerNav");
 
     function closeContainer() {
         isOpen = false;
