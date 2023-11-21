@@ -6,7 +6,7 @@
             {{ session('success') }}
         </div>
         @endif
-        @foreach ($data as $item)
+         @foreach ($data as $item)
         <a href="{{ route('auctions.show', $item->id)}}">
             <div class="mb-4 mt-4 p-6 border-2 border-gray-2 rounded-2xl">
                 <div class="flex items-start space-x-6">

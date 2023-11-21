@@ -27,14 +27,21 @@
             <li>Username: {{ auth()->user()->username }}</li>
         </ul>
 
-        <div class="overflow-x-auto no-scrollbar flex mt-[25px] rounded-[10px]">
-            <x-bid-card ref="/test" img="/dummy/sell_1.png" title="Iphone 14 promeg dip perpel original mulus mantap"
-                price="750.000">
-            </x-bid-card>
-
-            {{-- <x-bid-card ref="/test" img="{{ $auction->image_url }}" title="{{ $auction->title }}"
-                price="@money($auction->asking_price)">
-            </x-bid-card> --}}
+        <div id="container"
+            class="overflow-x-scroll no-scrollbar flex mt-[25px] rounded-[10px] md:gap-[1.2rem] gap-[20px]">
+            @forelse ($data as $item)
+                <div class="flex">
+                    <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                        title="{{ $item->title }}" price="{{ $item->asking_price }}">
+                    </x-bid-card>
+                </div>
+            @empty
+                <h1>No data</h1>
+            @endforelse
+        </div>
+        <div class="flex justify-end gap-5 mt-5">
+            <button id="slideleft">Prev</button>
+            <button id="slideright">Next</button>
         </div>
 
 
@@ -54,7 +61,7 @@
                                     {{ $auction->winner
                                         ? $auction->winner->username
                                         : 'No winner
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                yet' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            yet' }}
                                 </h2>
                             </section>
 

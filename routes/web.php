@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (Request $request) {
-    return view('home.index');
-})->name('home');
+Route::get('/', [PageController::class, 'index'])->name('home');
 
 Route::name('auth.')->group(function () {
     Route::get('/login', [AuthController::class, 'loginForm'])->name('loginForm');

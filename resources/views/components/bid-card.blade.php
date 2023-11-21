@@ -2,12 +2,12 @@
 
 <a href="{{ $ref }}"
     class="md:w-[13rem] w-auto min-w-[8rem] h-auto border-solid border-[1px] border-gray-3 rounded-[10px] overflow-clip">
-    <img src={{ $img }} alt="" />
+    <img src={{ $img }} class="object-cover w-full h-[206.4px] object-center" alt="" />
     <div class="p-[5px] font-body flex flex-col gap-[10px]">
-        <h1 class="text-detail font-medium">{{ $title }}</h1>
+        <h1 class="text-detail font-medium">{{ Str::limit($title, 50) }}</h1>
         <div>
             <p class="text-smallest text-black/70">At..</p>
-            <h1 class="text-body_bold text-dark-blue">Rp{{ $price }}</h1>
+            <h1 class="text-body_bold text-dark-blue">@money($price)</h1>
         </div>
         <div class="flex gap-[5px]">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
