@@ -25,17 +25,18 @@ function toggleNav() {
 
 document.addEventListener("DOMContentLoaded", toggleNav);
 
+//next & prev
 document.addEventListener("DOMContentLoaded", function () {
     var container = document.getElementById("container");
     var slideLeftButton = document.getElementById("slideleft");
     var slideRightButton = document.getElementById("slideright");
 
     slideLeftButton.addEventListener("click", function () {
-        sideScroll(container, "left", 10, 500, 10);
+        sideScroll(container, "left", 10, 600, 20);
     });
 
     slideRightButton.addEventListener("click", function () {
-        sideScroll(container, "right", 10, 500, 10);
+        sideScroll(container, "right", 10, 600, 20);
     });
 });
 

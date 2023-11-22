@@ -1,5 +1,56 @@
 <x-layout>
     <main class="font-body container mx-auto px-12">
+
+        <section class="mt-[5.563rem] flex flex-col gap-[10px]">
+            <div
+                class="m-auto w-full rounded-[10px] aspect-[calc(16/5)] relative overflow-hidden flex items-center justify-center">
+                <img src="/dummy/caraousel-1.png" alt="" />
+            </div>
+        </section>
+
+        {{-- recommendation section --}}
+        <section class="mt-[25px]">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col font-body">
+                    @if (auth()->check())
+                        <h1 class="sm:text-main_03 text-title_02">For {{ auth()->user()->username }}</h1>
+                    @else
+                        <h1 class="sm:text-main_03 text-title_02">Recommended For You</h1>
+                    @endif
+                    <h3 class="sm:text-subtitle text-body text-black/50">Recommended items for you.</h3>
+                </div>
+                <x-button-more ref="/auctions"></x-button-more>
+            </div>
+
+            <div id="container"
+                class="overflow-x-scroll no-scrollbar flex mt-[25px] rounded-[10px] md:gap-[1.2rem] gap-[20px]">
+                @forelse ($data as $item)
+                    <div class="flex">
+                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                            title="{{ $item->title }}" price="{{ $item->asking_price }}">
+                        </x-bid-card>
+                    </div>
+                @empty
+                    <p class="flex items-center">No data</p>
+                @endforelse
+            </div>
+
+            <div class="flex justify-end gap-2 mt-5">
+                <button id="slideleft">
+                    <img src="/assets/button/prev.svg" alt="" />
+                </button>
+                <button id="slideright">
+                    <img src="/assets/button/next.svg" alt="" />
+                </button>
+            </div>
+        </section>
+
+
+
+
+
+
+        {{-- contoh aja --}}
         <h1 class="my-12 font-body font-bold text-6xl text-gray-3">Home</h1>
 
         <a href="/logout">
@@ -27,25 +78,6 @@
             <li>Username: {{ auth()->user()->username }}</li>
         </ul>
 
-        <div id="container"
-            class="overflow-x-scroll no-scrollbar flex mt-[25px] rounded-[10px] md:gap-[1.2rem] gap-[20px]">
-            @forelse ($data as $item)
-                <div class="flex">
-                    <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                        title="{{ $item->title }}" price="{{ $item->asking_price }}">
-                    </x-bid-card>
-                </div>
-            @empty
-                <h1>No data</h1>
-            @endforelse
-        </div>
-        <div class="flex justify-end gap-5 mt-5">
-            <button id="slideleft">Prev</button>
-            <button id="slideright">Next</button>
-        </div>
-
-
-
         <h1 class="mt-6 font-bold text-xl">My Auctions</h1>
         <ul>
             @foreach (auth()->user()->auctions as $auction)
@@ -61,7 +93,7 @@
                                     {{ $auction->winner
                                         ? $auction->winner->username
                                         : 'No winner
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            yet' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    yet' }}
                                 </h2>
                             </section>
 
