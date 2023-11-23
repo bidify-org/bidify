@@ -1,4 +1,5 @@
-@props(['ref', 'img', 'title', 'price'])
+@props(['ref', 'img', 'title', 'price', 'endsAt'])
+
 
 <a href="{{ $ref }}"
     class="md:w-[13rem] w-auto min-w-[9rem] h-auto border-solid border-[1px] border-gray-3 rounded-[10px] overflow-clip flex flex-col">
@@ -21,10 +22,32 @@
                     stroke-linecap="round" stroke-linejoin="round" />
             </svg>
 
-            <p class="text-detail text-black/60">
-                {{-- {formatTime(remainingTime)} --}}
-                16:00
-            </p>
+            <p id="countdown_{{ $ref }}" class="text-detail text-black/60"></p>
         </div>
     </div>
+
+    <script>
+        // JavaScript countdown logic
+        const endDateTime = new Date("{{ $endsAt }}").getTime();
+        const countdownElement = document.getElementById("countdown_{{ $ref }}");
+
+        function updateCountdown() {
+            const currentTime = new Date().getTime();
+            const timeDifference = Math.max(endDateTime - currentTime, 0);
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            countdownElement.innerText = `${days} Days | ${hours}:${minutes}:${seconds}`;
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Initial update
+        updateCountdown();
+    </script>
+
 </a>

@@ -1,5 +1,5 @@
 <div class="font-body fixed w-full top-0 z-50">
-    <nav class="flex h-16 items-center border-b-2 gray-4 bg-white">
+    <nav class="flex h-16 items-center border-b-[1px] border-gray-3 bg-white">
         <x-container>
             <div class="flex sm:gap-[2.8rem] gap-5 w-full items-center">
                 <a href="/">
@@ -34,10 +34,17 @@
                 </div>
 
                 <div class="hidden sm:flex gap-[2.5rem] font-medium">
-                    <a href=""
-                        class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
-                        Sell
-                    </a>
+                    @if (auth()->check())
+                        <a href="{{ url('/auctions/create') }}"
+                            class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
+                            Sell
+                        </a>
+                    @else
+                        <a href="{{ url('/login') }}"
+                            class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
+                            Sell
+                        </a>
+                    @endif
 
                     @if (auth()->check())
                         <div class="flex gap-5 items-center">
@@ -54,7 +61,7 @@
                             </button>
                         </div>
                     @else
-                        <a href=""
+                        <a href="{{ url('login') }}"
                             class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
                             Login
                         </a>

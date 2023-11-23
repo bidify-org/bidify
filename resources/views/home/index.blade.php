@@ -27,7 +27,7 @@
                 @forelse ($data as $item)
                     <div class="flex">
                         <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->asking_price }}">
+                            title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
                         </x-bid-card>
                     </div>
                 @empty
@@ -42,6 +42,115 @@
                 <button id="slideright">
                     <img src="/assets/button/next.svg" alt="" />
                 </button>
+            </div>
+        </section>
+
+
+        {{-- bento --}}
+        <section class="mt-[35px]">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col font-body">
+                    <h1 class="sm:text-main_03 text-title_02">Featured By Bidify</h1>
+                    <h3 class="sm:text-subtitle text-body text-black/50">Bidify Guarantee.</h3>
+                </div>
+            </div>
+
+            <div class="mt-[25px] grid md:grid-cols-3 grid-cols-1 md:gap-[20px] gap-0 w-full font-body">
+                <div
+                    class="transform transition-transform duration-500 ease-in-out hover:scale-[1.03] border-[1px] cursor-pointer rounded-[10px] border-gray-3 h-auto flex flex-col justify-center items-center">
+                    <img class="" src="/bento/left.png" alt="" />
+                    <p class="mb-[5rem] text-body font-body">
+                        Available on 12/10/2023
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-3 col-span-2 sm:gap-[20px] gap-[10px]">
+                    <div
+                        class="transform transition-transform duration-500 ease-in-out hover:scale-[1.03] cursor-pointer border-[1px] md:mt-0 mt-[10px] rounded-[10px] border-gray-3 col-span-3 p-4 h-auto">
+                        <div class="grid grid-cols-4 p-4 items-center justify-center justify-items-center">
+                            <div class="flex flex-col justify-center">
+                                <img class="max-w-[80%]" src="/bidify_logo/logo_text_blue.svg" alt="" />
+                                <img class="max-w-[60%]" src="/payment_svg/dana.svg" alt="" />
+                            </div>
+                            <h1 class="lg:text-[1.5rem] text-title-03 font-normal">
+                                Get
+                            </h1>
+
+                            <h1 class="xl:text-display_02 text-[2.2rem] font-bold text-primary-blue">
+                                50%
+                            </h1>
+                            <h1 class="lg:text-[1.5rem] text-title_03 font-normal">
+                                Cashback
+                            </h1>
+                        </div>
+                    </div>
+
+                    <div
+                        class="transform transition-transform duration-500 ease-in-out hover:scale-[1.03] cursor-pointer border-[1px] rounded-[10px] border-gray-3 col-span-2 flex flex-col gap-2 h-auto p-5 items-center justify-center">
+                        <div
+                            class="sm:text-main_03 text-title_01 flex gap-3 items-center flex-wrap text-center justify-center">
+                            Hyundai <span class="font-normal">IONIQ</span> 5
+                        </div>
+                        <p class="text-body text-primary-blue">Starts at</p>
+                        <img src="/bento/hyundaiii.png" alt="" />
+                        <h1 class="sm:text-title_01 text-title_02 font-normal text-center">
+                            IDR <span class="font-bold">100.000.000</span>
+                        </h1>
+                        <p class="text-body text-primary-blue">
+                            Available on 10/10/2023
+                        </p>
+                    </div>
+
+                    <div
+                        class="transform transition-transform duration-500 ease-in-out hover:scale-[1.03] cursor-pointer border-[1px] rounded-[10px] border-gray-3 col-span-1 flex flex-col gap-2 p-5 items-center justify-center">
+                        <img src="/bento/ps5_logo.png" class="max-w-[80%]" alt="" />
+                        <p class="text-body text-primary-blue">Starts at</p>
+                        <img src="/bento/ps5.png" class="max-w-[80%]" alt="" />
+                        <h1 class="sm:text-title_01 text-[1.3rem] font-normal text-center">
+                            IDR <span class="font-bold">500.000</span>
+                        </h1>
+                        <p class="text-body text-primary-blue text-center">
+                            Available on 10/12/2023
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        {{-- category --}}
+        <section class="mt-[35px]">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col font-body">
+                    <h1 class="sm:text-main_03 text-title_02">Popular</h1>
+                    <h3 class="sm:text-subtitle text-body text-black/50">See the most popular category.</h3>
+                </div>
+                <x-button-more ref="/auctions"></x-button-more>
+            </div>
+
+            <div class="flex gap-5 mt-[25px] justify-between overflow-auto no-scrollbar rounded-[10px]">
+                <div class="flex md:gap-[3rem] gap-3 justify-between ">
+                    <div
+                        class="md:w-[20rem] w-[13rem] cursor-pointer h-auto border-solid border-[1px] border-gray-3 rounded-[10px] bg-[#F2F8FF] overflow-clip font-body">
+                        <img src=/category/tv.jpg alt="" />
+                        <p class="px-4 py-2 text-body_bold">Television</p>
+                    </div>
+                    <div
+                        class="md:w-[20rem] w-[13rem] cursor-pointer h-auto border-solid border-[1px] border-gray-3 rounded-[10px] bg-[#F2F8FF] overflow-clip font-body">
+                        <img src=/category/smartphone.jpg alt="" />
+                        <p class="px-4 py-2 text-body_bold">Smartphone</p>
+                    </div>
+                    <div
+                        class="md:w-[20rem] w-[13rem] cursor-pointer h-auto border-solid border-[1px] border-gray-3 rounded-[10px] bg-[#F2F8FF] overflow-clip font-body">
+                        <img src=/category/keyboard.jpg alt="" />
+                        <p class="px-4 py-2 text-body_bold">Keyboard</p>
+                    </div>
+                    <div
+                        class="md:w-[20rem] w-[13rem] cursor-pointer h-auto border-solid border-[1px] border-gray-3 rounded-[10px] bg-[#F2F8FF] overflow-clip font-body">
+                        <img src=/category/headphones.jpg alt="" />
+                        <p class="px-4 py-2 text-body_bold">Headphones</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -93,7 +202,7 @@
                                     {{ $auction->winner
                                         ? $auction->winner->username
                                         : 'No winner
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    yet' }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                yet' }}
                                 </h2>
                             </section>
 
