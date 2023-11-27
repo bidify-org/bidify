@@ -34,17 +34,11 @@
                 </div>
 
                 <div class="hidden sm:flex gap-[2.5rem] font-medium">
-                    @if (auth()->check())
-                        <a href="{{ url('/auctions/create') }}"
-                            class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
-                            Sell
-                        </a>
-                    @else
-                        <a href="{{ url('/login') }}"
-                            class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
-                            Sell
-                        </a>
-                    @endif
+
+                    <a href="{{ auth()->check() ? url('/auctions/create') : url('/login') }}"
+                        class="duration-200 relative mt-auto mb-auto text-primary-blue font-semibold hover:before:scale-x-100 before:absolute before:origin-top-left before:block before:transition-transform before:duration-[0.3s] before:ease-[ease] before:scale-x-0 before:left-0 before:bottom-0 before:w-full before:h-0.5 before:bg-[#5B86AC]">
+                        Sell
+                    </a>
 
                     @if (auth()->check())
                         <div class="flex gap-5 items-center">
@@ -82,7 +76,7 @@
 
                 <div class="border-b border-gray-3"></div>
 
-                <a
+                <a href="{{ url('logout') }}"
                     class="flex gap-2 items-center justify-center px-3 py-2 hover:bg-red-600 hover:text-white hover:rounded-[5px] font-medium text-red-500 cursor-pointer">
                     Log Out
                 </a>

@@ -12,11 +12,10 @@
         <section class="mt-[25px]">
             <div class="flex justify-between items-center">
                 <div class="flex flex-col font-body">
-                    @if (auth()->check())
-                        <h1 class="sm:text-main_03 text-title_02">For {{ auth()->user()->username }}</h1>
-                    @else
-                        <h1 class="sm:text-main_03 text-title_02">Recommended For You</h1>
-                    @endif
+
+                    <h1 class="sm:text-main_03 text-title_02">
+                        {{ auth()->check() ? 'For ' . auth()->user()->username : 'Recommended For You' }} </h1>
+
                     <h3 class="sm:text-subtitle text-body text-black/50">Recommended items for you.</h3>
                 </div>
                 <x-button-more ref="/auctions"></x-button-more>
@@ -155,6 +154,30 @@
         </section>
 
 
+        {{-- Others --}}
+        <section class="mt-[35px]">
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col font-body">
+                    <h1 class="sm:text-main_03 text-title_02">You May Like It</h1>
+                    <h3 class="sm:text-subtitle text-body text-black/50">Other electronic items that you may like.</h3>
+                </div>
+            </div>
+
+            <div
+                class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] sm:gap-x-0 gap-x-[20px] justify-between items-center mt-[25px] rounded-[10px]">
+                @forelse ($data as $item)
+                    <div class="flex">
+                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                            title="{{ $item->title }}" price="{{ $item->asking_price }}"
+                            endsAt="{{ $item->ends_at }}">
+                        </x-bid-card>
+                    </div>
+                @empty
+                    <p class="flex items-center">No data</p>
+                @endforelse
+            </div>
+
+        </section>
 
 
 
@@ -172,9 +195,6 @@
         <h1 class="text-2xl">Welcome, {{ auth()->user()->username }}</h1>
         <h1 class="mt-6 font-bold text-xl">Links</h1>
         <ul class="text-blue-500 underline">
-            <li>
-                <a href="/auctions">List all auctions</a>
-            </li>
             <li>
                 <a href="/auctions/create">Create auctions</a>
             </li>
@@ -199,10 +219,7 @@
                             <section>
                                 <h2 class="text-lg">Seller: {{ $auction->seller->username }}</h2>
                                 <h2 class="text-lg">Winner:
-                                    {{ $auction->winner
-                                        ? $auction->winner->username
-                                        : 'No winner
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                yet' }}
+                                    {{ $auction->winner ? $auction->winner->username : 'No winner yet' }}
                                 </h2>
                             </section>
 

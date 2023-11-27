@@ -58,7 +58,7 @@ class AuctionController extends Controller
         if (!$auction) {
             abort(404);
         }
-        return view('example.show-auction')->with('auction', $auction);
+        return view('auction.show-auction')->with('auction', $auction);
     }
 
     /**
