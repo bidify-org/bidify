@@ -172,21 +172,21 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Get the target date and time in milliseconds
-        var targetDate = new Date("{{ $auction->ends_at }}").getTime();
+        const targetDate = new Date("{{ $auction->ends_at }}").getTime();
 
         // Function to calculate and update the countdown
         function updateCountdown() {
-            var currentTime = new Date().getTime();
-            var timeDifference = Math.max(targetDate - currentTime, 0);
+            const currentTime = new Date().getTime();
+            const timeDifference = Math.max(targetDate - currentTime, 0);
 
             // Calculate days, hours, minutes, and seconds
-            var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
             // Format the remaining time
-            var remainingTime = `${days} Days | ${hours}:${minutes}:${seconds}`;
+            const remainingTime = `${days} Days | ${hours}:${minutes}:${seconds}`;
 
             // Update the countdown element
             document.getElementById("countdown").innerText = remainingTime;
