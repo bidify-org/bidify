@@ -7,10 +7,6 @@
     </div>
     <div class="flex justify-center items-center h-screen">
         <div class="bg-[#fff] flex flex-col px-[43px] py-[50px] w-[503px] max-w-lg  rounded-[40px]">
-
-            @if ($errors->any())
-            <h4>{{$errors->first()}}</h4>
-            @endif
             <form>
                 @csrf
                 <div class="flex flex-col mb-[36px]">
@@ -22,6 +18,9 @@
                         </a>
                     </p>
                 </div>
+                @if ($errors->any())
+                <p class="text-red-500 text-sm">{{$errors->first()}}</p>
+                @endif
                 <div>
                     <div class="flex flex-col flex-start gap-[1px] my-[15px]">
                         <label class="font-body text-body text-primary-blue">
