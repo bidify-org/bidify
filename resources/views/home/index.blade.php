@@ -2,7 +2,6 @@
     <main class="font-body container mx-auto px-12">
 
         <section class="mt-[5.563rem] flex flex-col gap-[10px]">
-            {{ Breadcrumbs::render('home') }}
             <div
                 class="m-auto w-full rounded-[10px] aspect-[calc(16/5)] relative overflow-hidden flex items-center justify-center">
                 <img src="/dummy/caraousel-1.png" alt="" />

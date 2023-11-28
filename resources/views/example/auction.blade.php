@@ -3,6 +3,8 @@
 
         <h1 class="font-body font-bold text-6xl text-gray-3">Auction / List</h1>
         {{ Breadcrumbs::render('auctions') }}
+        
+
         @if (session('success'))
             <div class="bg-green-500 p-4 rounded-lg mb-6 text-white text-center">
                 {{ session('success') }}
