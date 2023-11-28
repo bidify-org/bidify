@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", toggleNav);
 
 //next & prev
 document.addEventListener("DOMContentLoaded", function () {
-    var container = document.getElementById("container");
-    var slideLeftButton = document.getElementById("slideleft");
-    var slideRightButton = document.getElementById("slideright");
+    const container = document.getElementById("container");
+    const slideLeftButton = document.getElementById("slideleft");
+    const slideRightButton = document.getElementById("slideright");
 
     slideLeftButton.addEventListener("click", function () {
         sideScroll(container, "left", 10, 600, 20);
@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function sideScroll(element, direction, speed, distance, step) {
-    var scrollAmount = 0;
-    var slideTimer = setInterval(function () {
+    let scrollAmount = 0;
+    const slideTimer = setInterval(function () {
         if (direction === "left") {
             element.scrollLeft -= step;
         } else {
@@ -54,4 +54,3 @@ function sideScroll(element, direction, speed, distance, step) {
         }
     }, speed);
 }
-
