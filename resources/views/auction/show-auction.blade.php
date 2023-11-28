@@ -2,7 +2,7 @@
     {{-- bid --}}
     <x-container>
         <div class="mt-[98px] font-body">
-            Home/ This Supposed to be breadcrumb
+            {{ Breadcrumbs::render('auction', $auction) }}
         </div>
 
         <section class="mt-[35px] grid grid-cols-1 justify-between lg:grid-cols-2 xl:gap-0 gap-10">

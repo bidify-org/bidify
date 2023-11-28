@@ -2,6 +2,7 @@
     <main class="font-body container mx-auto px-12">
 
         <section class="mt-[5.563rem] flex flex-col gap-[10px]">
+            {{ Breadcrumbs::render('home') }}
             <div
                 class="m-auto w-full rounded-[10px] aspect-[calc(16/5)] relative overflow-hidden flex items-center justify-center">
                 <img src="/dummy/caraousel-1.png" alt="" />
@@ -183,7 +184,7 @@
 
 
         {{-- contoh aja --}}
-        <h1 class="my-12 font-body font-bold text-6xl text-gray-3">Home</h1>
+        {{-- <h1 class="my-12 font-body font-bold text-6xl text-gray-3">Home</h1>
 
         <a href="/logout">
             <button class="w-32 h-12 text-white font-bold rounded-xl bg-red-500 hover:bg-red-700 duration-150">
@@ -242,6 +243,6 @@
                     </div>
                 </div>
             @endforeach
-        </ul>
+        </ul> --}}
     </main>
 </x-layout>
