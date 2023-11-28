@@ -14,13 +14,13 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('home'));
 });
 
-// Home > Blog
+// Home > Auctions
 Breadcrumbs::for('auctions', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Auctions', route('auctions.index'));
 });
 
-// Home > Blog > [title]
+// Home > Auctions > [title]
 Breadcrumbs::for('auction', function (BreadcrumbTrail $trail, Auction $auction) {
     $trail->parent('auctions');
     $trail->push($auction->title, route('auctions.show', $auction));
