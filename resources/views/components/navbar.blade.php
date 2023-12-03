@@ -6,7 +6,7 @@
                     <img src="/bidify_logo/logo_text_blue.svg" class="max-w-[5rem]"></img>
                 </a>
 
-                <form class="w-full">
+                <form class="w-full" method="GET" action="{{ url('/search') }}">
                     <div class="flex bg-[#e9e8e7] border border-gray-3 rounded-[10px] h-auto pl-7 items-center gap-3">
                         <svg width="23" height="23" viewBox="0 0 23 23" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@
                                 stroke-linecap="round" />
                         </svg>
 
-                        <input type="search" placeholder="Search on Bidify"
+                        <input type="search" name="search" placeholder="Search on Bidify"
                             class="w-full py-[0.4rem] bg-transparent
                             focus:outline-none font-body pr-5" />
                     </div>

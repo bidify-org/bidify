@@ -1,5 +1,4 @@
 <x-layout>
-    {{-- bid --}}
     <x-container>
         <div class="mt-[98px] font-body">
             {{ Breadcrumbs::render('auction', $auction) }}

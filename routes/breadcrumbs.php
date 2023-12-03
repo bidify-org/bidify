@@ -20,6 +20,12 @@ Breadcrumbs::for('auctions', function (BreadcrumbTrail $trail) {
     $trail->push('Auctions', route('auctions.index'));
 });
 
+//Home > Search
+Breadcrumbs::for('search', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Search', route('home'));
+});
+
 // Home > Auctions > [title]
 Breadcrumbs::for('auction', function (BreadcrumbTrail $trail, Auction $auction) {
     $trail->parent('auctions');
