@@ -14,13 +14,15 @@ class AuctionSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 100; $i++) {
+            $askingPrice = rand(1, 9999999);
             DB::table('auctions')->insert([
                 'seller_id' => 1,
                 'winner_id' => 2,
                 'title' => fake()->sentence,
                 'image_url' => fake()->imageUrl,
                 'description' => fake()->paragraph,
-                'asking_price' => rand(1, 9999999),
+                'asking_price' => $askingPrice,
+                'buy_now_price' => $askingPrice * 3,
                 'ends_at' => Carbon::now()
                     ->subDays(rand(1, 365))
                     ->addYears(rand(1, 3))
