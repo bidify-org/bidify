@@ -2,7 +2,7 @@
     <section class="flex flex-col">
         <div class="flex items-start border-b-[1px] border-gray-3">
             <x-container>
-                <img class="max-w-[8rem] py-4" src="bidify_logo/logo_text_blue.svg" alt="" />
+                <img class="max-w-[8rem] py-4" src="/bidify_logo/logo_text_blue.svg" alt="" />
             </x-container>
         </div>
 
