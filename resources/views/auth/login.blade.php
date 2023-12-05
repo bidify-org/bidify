@@ -19,7 +19,7 @@
                     </p>
                 </div>
                 @if ($errors->any())
-                <p class="text-red-500 text-sm">{{$errors->first()}}</p>
+                    <p class="text-red-500 text-sm">{{ $errors->first() }}</p>
                 @endif
                 <div>
                     <div class="flex flex-col flex-start gap-[1px] my-[15px]">
@@ -53,14 +53,14 @@
                 <div class="flex flex-col flex-start gap-2 my-4">
                     <a href="/auth/google/redirect"
                         class="flex justify-center items-center h-[52px] font-body text-body text-black border-[1px] border-primary-blue rounded-[10px] bg-white">
-                        <img src="../src/assets/google.svg" class="fill-current w-[30px] h-[30px] mr-2 "></img>
+                        <img src="assets/google.svg" class="fill-current w-[30px] h-[30px] mr-2 "></img>
                         <span class="font-body text-detail">
                             Sign In with Google
                         </span>
                     </a>
                     <a href="/auth/github/redirect"
                         class="flex justify-center items-center h-[52px] font-body text-body text-black border-[1px] border-primary-blue rounded-[10px] bg-white">
-                        <img src="../src/assets/google.svg" class="fill-current w-[30px] h-[30px] mr-2 "></img>
+                        <img src="assets/github.svg" class="fill-current w-[30px] h-[30px] mr-2 "></img>
                         <span class="font-body text-detail">
                             Sign In with GitHub
                         </span>
