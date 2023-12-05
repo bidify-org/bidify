@@ -32,11 +32,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const slideRightButton = document.getElementById("slideright");
 
     slideLeftButton.addEventListener("click", function () {
-        sideScroll(container, "left", 10, 600, 20);
+        sideScroll(container, "left", 10, 600, 1000);
     });
 
     slideRightButton.addEventListener("click", function () {
-        sideScroll(container, "right", 10, 600, 20);
+        sideScroll(container, "right", 10, 600, 1000);
     });
 });
 
