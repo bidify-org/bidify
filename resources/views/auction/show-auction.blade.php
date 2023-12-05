@@ -12,8 +12,8 @@
 
             <div class="justify-self-center md:justify-self-start font-body w-full">
                 <div class="flex flex-col gap-1 text-body">
-                    <div class="w-full flex justify-between xl:items-center items-end xl:flex-row flex-col">
-                        <h1 class="text-[1.25rem] font-semibold">
+                    <div class="w-full flex justify-between xl:items-center xl:flex-row flex-col">
+                        <h1 class="text-[1.25rem] flex justify-start items-start font-semibold">
                             {{ $auction->title }}
                         </h1>
                         @auth()
@@ -36,7 +36,7 @@
 
                 <div
                     class="mt-[25px] border border-gray-3 rounded-[10px] p-[20px] w-full flex flex-col gap-[20px] font-medium">
-                    <div class="flex justify-around flex-col sm:flex-row">
+                    <div class="flex justify-around flex-col gap-5 sm:flex-row">
                         <div class="">
                             <h3>Current Bid</h3>
                             <p class="font-bold">Rp7.500.000</p>
@@ -71,11 +71,12 @@
                             <p>Bid: </p>
                             <input type="text"
                                 onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
-                                name="" id="" class="w-full bg-white focus:outline-none h-full" />
+                                name="" id="" placeholder="Put Your Bid Here"
+                                class="w-full bg-white focus:outline-none h-full" />
                         </div>
                         <div>
                             <h1>Buy Now</h1>
-                            <h1 class="text-title_02">@money($auction->buy_now_price)</h1>
+                            <h1 class="sm:text-title_02 font-bold">@money($auction->buy_now_price)</h1>
                         </div>
                     </div>
 

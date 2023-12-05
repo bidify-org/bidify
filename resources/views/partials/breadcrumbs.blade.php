@@ -15,7 +15,8 @@
                     </g>
                 </svg>
             @else
-                <li class="breadcrumb-item active text-primary-blue">{{ $breadcrumb->title }} </li>
+                <li class="breadcrumb-item active text-primary-blue whitespace-nowrap truncate">{{ $breadcrumb->title }}
+                </li>
             @endif
         @endforeach
     </ol>
