@@ -22,15 +22,15 @@
             </div>
 
             <div id="container"
-                class="overflow-x-scroll no-scrollbar flex mt-[25px] rounded-[10px] md:gap-[1.2rem] gap-[20px]">
+                class="overflow-x-scroll no-scrollbar flex mt-[25px] rounded-[10px] md:gap-[1.2rem] gap-[20px] scroll-smooth">
                 @forelse ($data as $item)
-                    <div class="flex">
-                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
-                        </x-bid-card>
-                    </div>
+                <div class="flex">
+                    <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                        title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
+                    </x-bid-card>
+                </div>
                 @empty
-                    <p class="flex items-center">No data</p>
+                <p class="flex items-center">No data</p>
                 @endforelse
             </div>
 
@@ -166,14 +166,13 @@
             <div
                 class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] sm:gap-x-0 gap-x-[20px] justify-between items-center mt-[25px] rounded-[10px]">
                 @forelse ($data as $item)
-                    <div class="flex">
-                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->asking_price }}"
-                            endsAt="{{ $item->ends_at }}">
-                        </x-bid-card>
-                    </div>
+                <div class="flex">
+                    <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                        title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
+                    </x-bid-card>
+                </div>
                 @empty
-                    <p class="flex items-center">No data</p>
+                <p class="flex items-center">No data</p>
                 @endforelse
             </div>
 
@@ -210,37 +209,37 @@
         <h1 class="mt-6 font-bold text-xl">My Auctions</h1>
         <ul>
             @foreach (auth()->user()->auctions as $auction)
-                <div class="mb-4 mt-4 p-6 border border-gray-2 rounded-2xl">
-                    <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6">
-                        <img class="w-full lg:max-w-sm h-full rounded-xl select-none" src="{{ $auction->image_url }}"
-                            alt="">
-                        <section class="flex flex-col justify-around">
-                            <h1 class="text-xl md:text-4xl font-bold">Title: {{ $auction->title }}</h1>
-                            <section>
-                                <h2 class="text-lg">Seller: {{ $auction->seller->username }}</h2>
-                                <h2 class="text-lg">Winner:
-                                    {{ $auction->winner ? $auction->winner->username : 'No winner yet' }}
-                                </h2>
-                            </section>
-
-                            <section>
-                                <p class="text-primary-blue text-lg md:text-xl">{{ $auction->description }}</p>
-                                <p class="text-green-600 text-lg">Starts at: @money($auction->asking_price)</p>
-                            </section>
-
-                            <div class="flex flex-col mt-4 md:mt-0 md:flex-row md:items-center md:space-x-4">
-                                <section>
-                                    <span>Ends at: </span>
-                                    <span class="text-red-600">{{ $auction->ends_at }}</span>
-                                </section>
-                                <section>
-                                    <span>Started at: </span>
-                                    <span class="text-green-600">{{ $auction->created_at }}</span>
-                                </section>
-                            </div>
+            <div class="mb-4 mt-4 p-6 border border-gray-2 rounded-2xl">
+                <div class="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6">
+                    <img class="w-full lg:max-w-sm h-full rounded-xl select-none" src="{{ $auction->image_url }}"
+                        alt="">
+                    <section class="flex flex-col justify-around">
+                        <h1 class="text-xl md:text-4xl font-bold">Title: {{ $auction->title }}</h1>
+                        <section>
+                            <h2 class="text-lg">Seller: {{ $auction->seller->username }}</h2>
+                            <h2 class="text-lg">Winner:
+                                {{ $auction->winner ? $auction->winner->username : 'No winner yet' }}
+                            </h2>
                         </section>
-                    </div>
+
+                        <section>
+                            <p class="text-primary-blue text-lg md:text-xl">{{ $auction->description }}</p>
+                            <p class="text-green-600 text-lg">Starts at: @money($auction->asking_price)</p>
+                        </section>
+
+                        <div class="flex flex-col mt-4 md:mt-0 md:flex-row md:items-center md:space-x-4">
+                            <section>
+                                <span>Ends at: </span>
+                                <span class="text-red-600">{{ $auction->ends_at }}</span>
+                            </section>
+                            <section>
+                                <span>Started at: </span>
+                                <span class="text-green-600">{{ $auction->created_at }}</span>
+                            </section>
+                        </div>
+                    </section>
                 </div>
+            </div>
             @endforeach
         </ul> --}}
     </main>
