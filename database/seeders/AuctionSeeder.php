@@ -13,7 +13,7 @@ class AuctionSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $askingPrice = rand(1, 9999999);
             DB::table('auctions')->insert([
                 'seller_id' => 1,
