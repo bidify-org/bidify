@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bid;
 
 class BidController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($auctionId)
     {
-        //
+        $bidders = Bid::where('auction_id', $auctionId)->with('user')->get();
+        return view('example.auction', compact('bidders'));
     }
 
     /**
@@ -27,15 +29,15 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+ 
     }
 
     /**

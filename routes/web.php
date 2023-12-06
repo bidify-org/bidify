@@ -4,6 +4,7 @@ use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\BidController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +35,5 @@ Route::name('auth.')->group(function () {
 });
 
 Route::resource('auctions', AuctionController::class);
+
+Route::get('/auction/{auctionId}/bidders', [BidController::class, 'index'])->name('bidders.index');
