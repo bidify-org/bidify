@@ -1,5 +1,34 @@
 <x-layout>
-    <div class="container mx-auto mt-6 px-6">
+    <x-container>
+        <section class="mt-[5.563rem]">
+            <div class="mb-[15px]">{{ Breadcrumbs::render('auctions') }}</div>
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col font-body">
+                    <h1 class="sm:text-main_03 text-title_02">Auction List</h1>
+                    <h3 class="sm:text-subtitle text-body text-black/50">Showing
+                        <span>{{ count($data) }}</span> Products
+                    </h3>
+                </div>
+            </div>
+
+            <div
+                class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] sm:gap-x-0 gap-x-[20px] justify-between items-center mt-[25px] rounded-[10px]">
+                @forelse ($data as $item)
+                    <div class="flex">
+                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                            title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
+                        </x-bid-card>
+                    </div>
+                @empty
+                    <p class="flex items-center">No data</p>
+                @endforelse
+            </div>
+
+        </section>
+    </x-container>
+</x-layout>
+
+{{-- <div class="container mx-auto mt-6 px-6">
 
         <h1 class="font-body font-bold text-6xl text-gray-3">Auction / List</h1>
         {{ Breadcrumbs::render('auctions') }}
@@ -49,5 +78,4 @@
                 </div>
             </a>
         @endforeach
-    </div>
-</x-layout>
+    </div> --}}

@@ -5,7 +5,7 @@
             <div class="flex justify-between items-center">
                 <div class="flex flex-col font-body">
                     <h1 class="sm:text-main_03 text-title_02">Search Result</h1>
-                    <h3 class="sm:text-subtitle text-body text-black/50">Showing Products for
+                    <h3 class="sm:text-subtitle text-body text-black/50">Showing {{ count($data) }} Products for
                         <span class="font-bold text-black">"{{ $searchTerm }}"</span>
                     </h3>
                 </div>
