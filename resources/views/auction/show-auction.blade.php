@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-5 items-end">
-                        <form class="grid grid-cols-1 gap-4">
+                        <form class="grid grid-cols-1 gap-4" method="">
                             <div
                                 class="border border-gray-3 sm:h-[63px] h-[54px] rounded-[5px] flex items-center px-[15px] gap-2">
                                 <p>Bid: </p>
@@ -82,7 +82,7 @@
                             </button>
                         </form>
 
-                        <form class="grid grid-cols-1 gap-4 text-subtitle font-bold">
+                        <form class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="">
                             <div>
                                 <h1>Buy Now</h1>
                                 <h1 class="sm:text-title_02 font-bold">@money($auction->buy_now_price)</h1>
