@@ -66,30 +66,35 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="border border-gray-3 rounded-[5px] flex items-center px-[15px] gap-2">
-                            <p>Bid: </p>
-                            <input type="text"
-                                onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
-                                name="" id="" placeholder="Put Your Bid Here"
-                                class="w-full bg-white focus:outline-none h-full" />
-                        </div>
-                        <div>
-                            <h1>Buy Now</h1>
-                            <h1 class="sm:text-title_02 font-bold">@money($auction->buy_now_price)</h1>
-                        </div>
+                    <div class="grid grid-cols-2 gap-5 items-end">
+                        <form class="grid grid-cols-1 gap-4">
+                            <div
+                                class="border border-gray-3 sm:h-[63px] h-[54px] rounded-[5px] flex items-center px-[15px] gap-2">
+                                <p>Bid: </p>
+                                <input type="text"
+                                    onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
+                                    name="" id="" placeholder="Put Your Bid Here"
+                                    class="w-full bg-white focus:outline-none h-full" />
+                            </div>
+                            <button
+                                class="py-[15px] h-full border border-gray-3 rounded-[5px] hover:bg-gray-3 duration-200">
+                                Place Bid
+                            </button>
+                        </form>
+
+                        <form class="grid grid-cols-1 gap-4 text-subtitle font-bold">
+                            <div>
+                                <h1>Buy Now</h1>
+                                <h1 class="sm:text-title_02 font-bold">@money($auction->buy_now_price)</h1>
+                            </div>
+
+                            <button
+                                class="py-[15px] h-full rounded-[3px] text-white bg-primary-blue hover:bg-light-blue duration-200">
+                                Buy Now
+                            </button>
+                        </form>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 text-subtitle font-bold">
-                        <button
-                            class="py-[15px] h-full border border-gray-3 rounded-[5px] hover:bg-gray-3 duration-200">
-                            Place Bid
-                        </button>
-                        <button
-                            class="py-[15px] h-full rounded-[3px] text-white bg-primary-blue hover:bg-light-blue duration-200">
-                            Buy Now
-                        </button>
-                    </div>
                 </div>
 
 
