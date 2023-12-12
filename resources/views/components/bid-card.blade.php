@@ -6,7 +6,7 @@
     <img src={{ $img }}
         class="object-cover md:w-[210px] md:h-[210px] w-[160px] h-[160px] aspect-square object-center" alt="" />
     <div class="p-[5px] font-body flex flex-col gap-[10px]">
-        <h1 class="text-detail font-medium min-h-[3rem]">{{ Str::limit($title, 50) }}</h1>
+        <h1 class="text-detail font-medium min-h-[3rem]">{{ Str::limit($title, 40) }}</h1>
         <div>
             <p class="text-smallest text-black/70">At..</p>
             <h1 class="text-body_bold text-dark-blue">@money($price)</h1>
