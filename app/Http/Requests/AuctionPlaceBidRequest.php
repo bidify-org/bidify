@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Bid;
 
 class AuctionPlaceBidRequest extends FormRequest
 {
@@ -22,7 +23,20 @@ class AuctionPlaceBidRequest extends FormRequest
     public function rules(): array
     {
         return [
+            
             'amount' => 'required|numeric',
         ];
+    }
+    protected function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $auctionId = $this->route('auctionId');
+            $currentMaxAmount = Bid::where('auction_id', $auctionId)->max('amount');
+            $enteredAmount = $this->input('amount');
+
+            if ($enteredAmount <= $currentMaxAmount) {
+                $validator->errors()->add('amount', 'The bid amount must be greater than the current maximum amount.');
+            }
+        });
     }
 }

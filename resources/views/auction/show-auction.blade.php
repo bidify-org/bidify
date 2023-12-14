@@ -67,13 +67,16 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-5 items-end">
-                        <form class="grid grid-cols-1 gap-4" method="">
+                        <form action="/auction/{auctionId}/bidders" class="grid grid-cols-1 gap-4" method="post">
+                            {{-- CSRF Request --}}
+                            @csrf
                             <div
                                 class="border border-gray-3 sm:h-[63px] h-[54px] rounded-[5px] flex items-center px-[15px] gap-2">
                                 <p>Bid: </p>
+                                {{-- input bid form --}}
                                 <input type="text"
                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
-                                    name="" id="" placeholder="Put Your Bid Here"
+                                    name="amount" id="" placeholder="Put Your Bid Here"
                                     class="w-full bg-white focus:outline-none h-full" />
                             </div>
                             <button
