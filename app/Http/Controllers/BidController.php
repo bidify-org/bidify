@@ -21,35 +21,18 @@ class BidController extends Controller
         return view('example.auction', compact('bidders'));
     }
 
-    public function placeBid(Request $request, $auctionId)
+    public function placeBid(AuctionPlaceBidRequest $request, $auctionId )
     {
+        $validated = $request->validated();
 
-        // $auctionId = (int) $auctionId;
-    // $this->authorize('placeBid', Bid::class);
+        $bid = new Bid();
 
-    // // Validate the request using the form request class
-    // $request->validate([
-    //     'amount' => 'required|numeric'
-    // ]);
+        $bid->user_id = auth()->user()->id;
+        $bid->auction_id = $auctionId;
+        $bid->amount = $request->validated(['amount']);
 
+        $bid->save();
 
-    // $bid = Bid::create([
-    //     'auction_id' => $auctionId,
-    //     'amount' => $request->input('amount'),
-    // ]);
-
-    // // You can perform additional actions or return a response here
-
-    // return redirect()->route('bidders.index', ['auctionId' => $auctionId])
-    //     ->with('success', 'Bid placed successfully!');
-            
-        $request->validate([
-            'amount' => 'required|numeric'
-        ]);
-
-        $bid = Bid::create([ 
-            'user_id' => auth()->user()->id, 
-            'auction_id' => $auctionId,
-            'amount' => $request->input('amount')]);
+        return redirect()->route('bidders.index');
     }
 }
