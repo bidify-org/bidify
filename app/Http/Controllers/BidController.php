@@ -30,6 +30,7 @@ class BidController extends Controller
         $bid->user_id = auth()->user()->id;
         $bid->auction_id = $request->input('amount');
         $bid->amount = $validated['amount'];
+        
         $bid->save();
 
         return redirect()->route('bidders.index');
