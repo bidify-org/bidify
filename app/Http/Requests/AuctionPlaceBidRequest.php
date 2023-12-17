@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Bid;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuctionPlaceBidRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class AuctionPlaceBidRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**

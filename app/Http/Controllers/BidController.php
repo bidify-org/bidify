@@ -21,7 +21,7 @@ class BidController extends Controller
         return view('example.auction', compact('bidders'));
     }
 
-    public function placeBid(AuctionPlaceBidRequest $request, $auctionId )
+    public function placeBid(AuctionPlaceBidRequest $request, $auctionId)
     {
         $validated = $request->validated();
 
@@ -33,6 +33,6 @@ class BidController extends Controller
 
         $bid->save();
 
-        return redirect()->route('bidders.index');
+        return redirect()->route('auctions.show', $auctionId);
     }
 }

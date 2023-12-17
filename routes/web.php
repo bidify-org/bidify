@@ -36,5 +36,4 @@ Route::name('auth.')->group(function () {
 
 Route::resource('auctions', AuctionController::class);
 
-Route::get('/auction/{auctionId}/bidders', [BidController::class, 'index'])->name('bidders.index');
-Route::post('/auction/{auctionId}/bidders', [BidController::class, 'placeBid'])->name('bidders.index');
+Route::post('/auctions/{auctionId}/bidders', [BidController::class, 'placeBid']);

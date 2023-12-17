@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-5 items-end">
-                        <form action="/auction/{auctionId}/bidders" class="grid grid-cols-1 gap-4" method="post">
+                        <form action="/auctions/{{ $auction->id }}/bidders" class="grid grid-cols-1 gap-4" method="post">
                             {{-- CSRF Request --}}
                             @csrf
                             <div
