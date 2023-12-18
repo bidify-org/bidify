@@ -42,24 +42,29 @@
         <div class="mt-[35px]">
             <ul class="flex border-b border-gray-3">
                 <li class="-mb-px mr-1">
-                    <button onclick="showTab('tab1')"
+                    <button onclick="showTab('tab-transactions')"
                         class="bg-white inline-block py-2 px-4 text-light-blue hover:text-primary-blue font-semibold active-tab transition duration-300 ease-in-out">
                         Transactions
                     </button>
                 </li>
                 <li class="mr-1">
-                    <button onclick="showTab('tab2')"
+                    <button onclick="showTab('tab-bids')"
                         class="bg-white inline-block py-2 px-4 text-light-blue hover:text-primary-blue font-semibold transition duration-300 ease-in-out">
-                        Auctions</button>
+                        Bids</button>
                 </li>
                 <li class="mr-1">
-                    <button onclick="showTab('tab3')"
+                    <button onclick="showTab('tab-auctions')"
+                        class="bg-white inline-block py-2 px-4 text-light-blue hover:text-primary-blue font-semibold transition duration-300 ease-in-out">
+                        Account</button>
+                </li>
+                <li class="mr-1">
+                    <button onclick="showTab('tab-account')"
                         class="bg-white inline-block py-2 px-4 text-light-blue hover:text-primary-blue font-semibold transition duration-300 ease-in-out">
                         Account</button>
                 </li>
             </ul>
 
-            <section id="tab1" class="py-4 sm:px-4 px-0 min-h-[50vh]">
+            <section id="tab-transactions" class="py-4 sm:px-4 px-0 min-h-[50vh]">
                 <div>
                     <div class="flex justify-between items-center">
                         <div class="flex flex-col font-body">
@@ -81,30 +86,70 @@
                         @endforelse
                     </div>
                 </div>
-                <div class="mt-[35px]">
+            </section>
+
+            <section id="tab-bids" class="hidden py-4 sm:px-4 px-0 min-h-[50vh]">
+                <div>
                     <div class="flex justify-between items-center">
                         <div class="flex flex-col font-body">
                             <h1 class="sm:text-main_03 text-title_02">My Bids</h1>
-                            <h3 class="sm:text-subtitle text-body text-black/50">Your bids.</h3>
+                            <h3 class="sm:text-subtitle text-body text-black/50">
+                                Auctions you've bid on.
+                            </h3>
                         </div>
                     </div>
-                    <div
-                        class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] gap-x-[20px] items-center mt-[25px] rounded-[10px]">
-                        @forelse ($data->bids as $item)
-                        <div class="flex">
-                            <x-bid-card ref="{{ route('auctions.show', $item->auction->id) }}"
-                                img="{{ $item->auction->image_url }}" title="{{ $item->auction->title }}"
-                                price="{{ $item->amount }}" endsAt="{{ $item->auction->ends_at }}">
-                            </x-bid-card>
+                    <div class="grid grid-cols-1 justify-between lg:grid-cols-2 xl:gap-0 gap-10">
+                        @forelse ($data->biddedAuctions as $auction)
+                        <div class="flex flex-col pb-32">
+                            <img src="{{ $auction->image_url }}"
+                                class="md:h-[320px] md:w-[320px] h-full w-full object-cover" alt="" />
+                            <h2 class="text-main_03 font-semibold">{{ $auction->title }}</h2>
+                            <p class="text-title_02">@money($auction->top_bid_amount)</p>
                         </div>
+                        <div class="max-h-[15rem] overflow-y-auto">
+
+                            <div class="flex justify-center flex-col">
+                                <div class="border-b border-gray-3"></div>
+                                <div class="py-5 px-3 grid grid-cols-4 text-black/50 font-medium">
+                                    <p class="col-span-2">Bidder</p>
+                                    <p>Bid Price</p>
+                                    <p>Date</p>
+                                </div>
+                                <div class="border-b border-gray-3"></div>
+                            </div>
+                            @foreach ($auction->bids as $bid)
+                            <div>
+                                <div class="flex justify-center flex-col">
+                                    <div class="py-5 px-3 grid grid-cols-4 text-black font-medium">
+                                        @if($bid->user->id === $auction->winner_id)
+                                        <p class="col-span-2 font-bold text-green-600">{{ $bid->user->name }} (Winner)
+                                        </p>
+                                        <p class="font-bold text-green-600">@money($bid->amount)</p>
+                                        <p title="{{ $bid->created_at }}">{{ $bid->created_at->diffForHumans() }}</p>
+                                        @else
+                                        <p class="col-span-2">{{ $bid->user->name }}</p>
+                                        <p>@money($bid->amount)</p>
+                                        <p title="{{ $bid->created_at }}">{{ $bid->created_at->diffForHumans() }}</p>
+                                        @endif
+                                    </div>
+                                    <div class="border-b border-gray-3"></div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
+                        {{-- <x-bid-card ref="{{ route('auctions.show', $item->auction->id) }}"
+                            img="{{ $item->auction->image_url }}" title="{{ $item->auction->title }}"
+                            price="{{ $item->amount }}" endsAt="{{ $item->auction->ends_at }}">
+                        </x-bid-card> --}}
                         @empty
-                        <p class="flex items-center">No Bids</p>
-                        @endforelse
                     </div>
+                    <p class="flex items-center">No Bids</p>
+                    @endforelse
                 </div>
             </section>
 
-            <section id="tab2" class="hidden py-4 sm:px-4 px-0 min-h-[50vh]">
+            <section id="tab-auctions" class="hidden py-4 sm:px-4 px-0 min-h-[50vh]">
                 <div>
                     <div class="flex justify-between items-center">
                         <div class="flex flex-col font-body">
@@ -128,7 +173,7 @@
                 </div>
             </section>
 
-            <section id="tab3" class="hidden py-4 sm:px-4 px-0 min-h-[50vh]">
+            <section id="tab-account" class="hidden py-4 sm:px-4 px-0 min-h-[50vh]">
                 <div class="flex my-5 items-center">
                     <h3 class="flex flex-col gap-4 font-semibold w-[10rem] max-w-[50%]">Name</h3>
                     <p class="text-black/70 max-w-[50%]">{{ $data->user->name }}</p>

@@ -12,13 +12,27 @@ class ProfileController extends Controller
         $user = auth()->user();
         $wonAuctions = $user->wonAuctions()->get();
         $ownedAuctions = $user->auctions()->get();
-        $bids = $user->bids()->get();
+
+        // Get each auction that the user has bid on
+        $biddedAuctions = $user->bids()->get()->map(function ($bid) {
+            return $bid->auction;
+        });
+
+        // Remove duplicates
+        $biddedAuctions = $biddedAuctions->unique('id');
+
+        // Get each bids for each auction with each user
+        $biddedAuctions = $biddedAuctions->map(function ($auction) {
+            $auction->bids = $auction->bids()->with('user')->latest()->get();
+
+            return $auction;
+        });
 
         $data = (object) [
             'user' => $user,
             'wonAuctions' => $wonAuctions,
             'ownedAuctions' => $ownedAuctions,
-            'bids' => $bids,
+            'biddedAuctions' => $biddedAuctions,
         ];
 
         return view('profile.index')->with('data', $data);
