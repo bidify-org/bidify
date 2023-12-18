@@ -2,7 +2,7 @@
     <div class="container mx-auto mt-30 px-[8rem]">
         <h3 class="font-body font-bold text-3xl sm:text-5xl text-black mt-[5.563rem] ">Your Bids</h3>
     </div>
-    <div class="container flex mx-auto mt-6 mb-40 gap-4 px-[8rem]">
+    <div class="container flex flex-col sm:flex-row mx-auto mt-6 mb-40 gap-4 px-[8rem]">
         <div class="container flex flex-col gap-[2rem] h-fit ">
             <div class="container border-solid border-2 border-grey rounded-lg h-fit p-4">
                 {{-- Foreach(?) kalo emang mau ambil item secara dinamis--}}
