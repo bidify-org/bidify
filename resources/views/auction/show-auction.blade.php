@@ -37,12 +37,20 @@
                 <div
                     class="mt-[25px] border border-gray-3 rounded-[10px] p-[20px] w-full flex flex-col gap-[20px] font-medium">
                     <div class="flex justify-around flex-col gap-5 sm:flex-row">
-                        <div class="">
+                        <div>
                             <h3>Current Bid</h3>
                             <p class="font-bold">Rp7.500.000</p>
                         </div>
+                        @auth()
+                        @if (auth()->user()->id === $auction->seller_id)
+                        <div>
+                            <h3>Current Buy Now Price</h3>
+                            <p class="font-bold">@money($auction->buy_now_price)</p>
+                        </div>
+                        @endif
+                        @endauth
 
-                        <div class="">
+                        <div>
                             <h3>Asking Price</h3>
                             <p>@money($auction->asking_price)</p>
                         </div>
