@@ -13,6 +13,11 @@ class PageController extends Controller
         return view('home.index')->with('data', $data);
     }
 
+    public function profile(){
+        $data = Auction::orderBy('created_at', 'desc')->get();
+        return view('home.profile')->with('data', $data);
+    }
+
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');

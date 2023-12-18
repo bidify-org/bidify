@@ -27,11 +27,11 @@
                     </div>
                 </form>
 
-                <div class="sm:hidden visible items-center flex">
+                <a href="{{ url('profile') }}" class="sm:hidden visible items-center flex">
                     <button>
                         <img ref={imgRef} src="/dummy/profile-circle.png" class="max-w-[5rem]"></img>
                     </button>
-                </div>
+                </a>
 
                 <div class="hidden sm:flex gap-[2.5rem] font-medium">
 
@@ -42,7 +42,7 @@
 
                     @if (auth()->check())
                         <div class="flex gap-5 items-center">
-                            <a href="" class="font-bold text-primary-blue">
+                            <a class="font-bold text-primary-blue">
                                 <svg width="38" height="38" viewBox="0 0 38 38" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -69,7 +69,7 @@
         <x-container>
             <div
                 class="bg-white/80 backdrop-blur-md shadow-md absolute flex flex-col top-1 lg:right-16 right-5 rounded-[10px] px-3 py-2 gap-2 justify-between transition-all duration-300 z-[1000]">
-                <a to=""
+                <a href="{{ url('profile') }}"
                     class="px-3 py-2 font-bold hover:bg-primary-blue hover:text-white hover:rounded-[5px] text-center cursor-pointer">
                     Account
                 </a>

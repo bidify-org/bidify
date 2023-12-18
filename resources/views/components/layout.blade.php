@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'Bidify' }}</title>
+    <link rel="icon" type="image/x-icon" href="/bidify_logo/favicon.png">
     @vite('resources/css/app.css')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +16,7 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 
-<body class="bg-white">
+<body class="bg-white font-body">
     <x-navbar />
     {{ $slot }}
     <x-footer />
