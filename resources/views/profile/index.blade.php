@@ -138,7 +138,7 @@
             document.getElementById('editAddressForm').classList.remove('flex');
         }
 
-        let editAddressBtn = document.getElementById('editAddressBtn');
+        const editAddressBtn = document.getElementById('editAddressBtn');
         editAddressBtn.addEventListener('click', toggleEditAddressForm);
     </script>
     @endpush
