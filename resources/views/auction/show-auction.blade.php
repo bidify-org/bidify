@@ -18,7 +18,7 @@
                         </h1>
                         @auth()
                         @if (auth()->user()->id === $auction->seller_id && !$auction->winner)
-                        <form action="/auctions/{{ $auction->id }}" method="POST">
+                        <form action="{{ route('auctions.destroy', $auction->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button
@@ -108,7 +108,7 @@
                     </div>
                     @enderror
                     <div class="grid grid-cols-2 gap-5 items-end">
-                        <form action="/auctions/{{ $auction->id }}/bidders" class="grid grid-cols-1 gap-4"
+                        <form action="{{ route('bids.placeBid', $auction->id) }}" class="grid grid-cols-1 gap-4"
                             method="post">
                             {{-- CSRF Request --}}
                             @csrf
@@ -131,7 +131,7 @@
 
                         @if ($auction->buy_now_price !== 0)
                         {{-- BUY NOW FORM --}}
-                        <form action="/auctions/{{ $auction->id }}"
+                        <a href="{{ route('auctions.checkout', $auction->id) }}"
                             class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="post">
                             @csrf
                             <div>
@@ -143,7 +143,7 @@
                                 class="py-[15px] h-full rounded-[3px] text-white bg-primary-blue hover:bg-light-blue duration-200">
                                 Buy Now
                             </button>
-                        </form>
+                        </a>
                         @endif
                     </div>
                     @endif
@@ -155,7 +155,7 @@
                 @if (auth()->user()->id === $auction->seller_id && $auction->bids->count() > 0 && $auction->winner_id
                 ===
                 null)
-                <form action="/auctions/{{ $auction->id }}/close" method="post">
+                <form action="{{ route('auctions.closeAuction', $auction->id)}}" method="post">
                     @csrf
                     <button
                         class="mt-[25px] rounded-[10px] p-[20px] w-full font-medium text-white bg-primary-blue hover:bg-light-blue duration-200">

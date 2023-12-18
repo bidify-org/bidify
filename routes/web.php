@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('/search', [PageController::class, 'search']);
-Route::get('/checkout',[PageController::class, 'checkout']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
@@ -41,6 +40,8 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::resource('auctions', AuctionController::class);
-Route::post('/auctions/{auctionId}/close', [AuctionController::class, 'closeAuction']);
-Route::post('/auctions/{auctionId}/bidders', [BidController::class, 'placeBid']);
-Route::post('auctions/{auctionId}', [AuctionController::class, 'auctionWinner']);
+
+Route::post('/auctions/{auctionId}/close', [AuctionController::class, 'closeAuction'])->name('auctions.closeAuction');
+Route::post('/auctions/{auctionId}/bidders', [BidController::class, 'placeBid'])->name('bids.placeBid');
+Route::get('/auctions/{auctionId}/checkout', [AuctionController::class, 'checkout'])->name('auctions.checkout');
+Route::post('/auctions/{auctionId}/buy-now', [AuctionController::class, 'buyNow'])->name('auctions.buyNow');

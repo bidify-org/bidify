@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuctionStoreRequest;
 use App\Models\Auction;
 use App\Models\Bid;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use DB;
 
 class AuctionController extends Controller
 {
@@ -66,16 +65,33 @@ class AuctionController extends Controller
         return redirect()->route('auctions.show', $id)->with('success', 'Auction closed successfully');
     }
 
-    public function auctionWinner(string $id)
+    public function checkout(string $id)
+    {
+        $auction = Auction::find($id);
+        $recommendations = Auction::orderBy('created_at', 'desc')->limit(4)->get();
+        return view('auction.checkout')->with(compact('auction', 'recommendations'));
+    }
+
+    public function buyNow(string $id)
     {
         $auction = Auction::find($id);
         if (!$auction) {
             abort(404);
         }
 
-        $auction->winner_id = auth()->user()->id;
-        $auction->top_bid_amount = $auction->buy_now_price;
-        $auction->save();
+        DB::transaction(function () use ($auction, $id) {
+            // set the winner to the current user
+            $auction->winner_id = auth()->user()->id;
+            $auction->top_bid_amount = $auction->buy_now_price;
+            $auction->save();
+
+            // add the bid to the database
+            $bid = new Bid();
+            $bid->user_id = auth()->user()->id;
+            $bid->auction_id = $id;
+            $bid->amount = $auction->buy_now_price;
+            $bid->save();
+        });
 
         return redirect()->route('auctions.show', $id);
     }
