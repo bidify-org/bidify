@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\BidController;
@@ -19,10 +20,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('home');
-Route::get('/search', [PageController::class,'search']);
+Route::get('/search', [PageController::class, 'search']);
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [PageController::class, 'profile'])->name('profile');
-});//sementara doang, harusnya make "id"
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+}); //sementara doang, harusnya make "id"
 
 Route::name('auth.')->group(function () {
     Route::get('/login', [AuthController::class, 'loginForm'])->name('loginForm');
