@@ -25,7 +25,7 @@ class AuctionStoreRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'asking_price' => 'required|numeric',
             'ends_at' => 'required|date|after:today',
         ];
