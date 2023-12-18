@@ -178,18 +178,20 @@
                     <h1 class="text-title_02 my-[25px]">Current Bids</h1>
                     <div class="flex justify-center flex-col">
                         <div class="border-b border-gray-3"></div>
-                        <div class="py-5 px-3 grid grid-cols-3 text-black/50 font-medium">
+                        <div class="py-5 px-3 grid grid-cols-4 text-black/50 font-medium">
                             <p class="col-span-2">Bidder</p>
                             <p>Bid Price</p>
+                            <p>Date</p>
                         </div>
                         <div class="border-b border-gray-3"></div>
                     </div>
                     <div class="max-h-[15rem] overflow-y-auto">
                         @foreach ($auction->bids->sortByDesc('created_at') as $bid)
                         <div class="flex justify-center flex-col">
-                            <div class="py-5 px-3 grid grid-cols-3 text-black font-medium">
+                            <div class="py-5 px-3 grid grid-cols-4 text-black font-medium">
                                 <p class="col-span-2"> {{ $bid->user->name }}</p>
                                 <p>@money($bid->amount)</p>
+                                <p title="{{ $bid->created_at }}">{{ $bid->created_at->diffForHumans() }}</p>
                             </div>
                             <div class="border-b border-gray-3"></div>
                         </div>
