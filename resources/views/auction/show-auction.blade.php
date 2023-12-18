@@ -39,7 +39,7 @@
                     <div class="flex justify-around flex-col gap-5 sm:flex-row">
                         <div>
                             <h3>Current Bid</h3>
-                            <p class="font-bold">Rp7.500.000</p>
+                            <p class="font-bold">@money($topBid)</p> 
                         </div>
                         @auth()
                         @if (auth()->user()->id === $auction->seller_id)

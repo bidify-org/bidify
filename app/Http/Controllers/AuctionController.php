@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuctionStoreRequest;
 use App\Models\Auction;
+use App\Models\Bid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,7 +60,9 @@ class AuctionController extends Controller
         if (!$auction) {
             abort(404);
         }
-        return view('auction.show-auction')->with('auction', $auction);
+
+        $topBid = Bid::where('auction_id', $id)->max('amount');
+        return view('auction.show-auction')->with(['auction' => $auction, 'topBid' => $topBid]);
     }
 
     /**
