@@ -66,6 +66,20 @@ class AuctionController extends Controller
         return redirect()->route('auctions.show', $id)->with('success', 'Auction closed successfully');
     }
 
+    public function auctionWinner(string $id)
+    {
+        $auction = Auction::find($id);
+        if (!$auction) {
+            abort(404);
+        }
+    
+        $auction->winner_id = auth()->user()->id;
+        $auction->top_bid_amount = $auction->buy_now_price;
+        $auction->save();
+    
+        return redirect()->route('auctions.show', $id);
+    }
+
     /**
      * Display the specified resource.
      */
