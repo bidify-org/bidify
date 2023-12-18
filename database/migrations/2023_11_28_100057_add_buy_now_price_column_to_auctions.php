@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('auctions', function (Blueprint $table) {
-            $table->unsignedInteger('buy_now_price')->after('asking_price')->default(0);
+            $table->unsignedBigInteger('buy_now_price')->after('asking_price')->default(0);
         });
     }
 
