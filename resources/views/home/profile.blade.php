@@ -10,7 +10,12 @@
                     @if (auth()->user()->address)
                         <p class="text-subtitle text-black/70">{{ auth()->user()->address }}</p>
                     @else
-                        <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
+                        <div>
+                            <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
+                            <button
+                                class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Add
+                                Address</button>
+                        </div>
                     @endif
                 </div>
             </div>
