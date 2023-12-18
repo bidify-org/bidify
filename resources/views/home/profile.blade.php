@@ -47,7 +47,7 @@
             </div>
             <div
                 class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] sm:gap-x-0 gap-x-[20px] justify-between items-center mt-[25px] rounded-[10px]">
-                @forelse (auth()->user()->auctions as $auction)
+                @forelse (auth()->user()->auctions as $item)
                     <div class="flex">
                         <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
                             title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
