@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('/search', [PageController::class,'search']);
-Route::get('/profile', [PageController::class,'profile']);//sementara doang, harusnya make "id"
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [PageController::class, 'profile'])->name('profile');
+});//sementara doang, harusnya make "id"
 
 Route::name('auth.')->group(function () {
     Route::get('/login', [AuthController::class, 'loginForm'])->name('loginForm');
