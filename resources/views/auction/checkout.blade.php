@@ -62,7 +62,7 @@
         </div>
         
         {{-- Summary --}}
-        <div class="container mx-auto border-solid border-2 border-grey rounded-lg p-10 h-fit w-[60%] flex flex-col gap-[2rem]">
+        <div class="container mx-auto border-solid border-2 border-grey rounded-lg p-10 h-fit w-[60%] flex flex-col gap-[2rem] sticky top-40">
             <h3 class="font-body font-bold text-4xl text-black ">Summary</h3>
             <div class="flex flex-col gap-[2rem]">
                 <div class="flex justify-between">
