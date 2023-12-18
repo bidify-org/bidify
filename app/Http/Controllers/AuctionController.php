@@ -58,7 +58,7 @@ class AuctionController extends Controller
             abort(404);
         }
 
-        $topBidder = Bid::where('auction_id', $id)->orderBy('amount', 'desc')->first();
+        $topBidder = Bid::where('auction_id', $id)->latest()->first();
 
         $auction->winner_id = $topBidder->user_id;
         $auction->save();
