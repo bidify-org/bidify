@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="container mx-auto mt-30 px-[8rem]">
+    <div class="container mx-auto mt-30 px-0 sm:px-[8rem]">
         <h3 class="font-body font-bold text-3xl sm:text-5xl text-black mt-[5.563rem] ">Your Bids</h3>
     </div>
-    <div class="container flex flex-col sm:flex-row mx-auto mt-6 mb-40 gap-4 px-[8rem]">
+    <div class="container flex flex-col sm:flex-row mx-0 sm:mx-auto mt-6 mb-40 gap-4 px-0 sm:px-[8rem]">
         <div class="container flex flex-col gap-[2rem] h-fit ">
             <div class="container border-solid border-2 border-grey rounded-lg h-fit p-4">
                 {{-- Foreach(?) kalo emang mau ambil item secara dinamis--}}
@@ -48,7 +48,7 @@
 
         {{-- Summary --}}
         <div
-            class="container mx-auto border-solid border-2 border-grey rounded-lg p-10 h-fit w-[60%] flex flex-col gap-[2rem] sticky top-40">
+            class="container sm:mx-auto border-solid border-2 border-grey rounded-lg p-10 h-fit sm:w-[60%] flex flex-col gap-[2rem] sticky top-40">
             <h3 class="font-body font-bold text-4xl text-black ">Summary</h3>
             <div class="flex flex-col gap-[2rem]">
                 <div class="flex justify-between">
