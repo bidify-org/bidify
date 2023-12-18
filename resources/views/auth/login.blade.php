@@ -1,10 +1,4 @@
 <x-layout title="Bidify Login">
-
-    <div class="flex justify-center w-full border-b-2 border-gray3">
-        <a href="/" class="py-13">
-            <img src="../../../public/bidify_logo/logo_text_blue.svg" class="max-w-[5rem] py-3"></img>
-        </a>
-    </div>
     <div class="flex justify-center items-center h-screen">
         <div class="bg-[#fff] flex flex-col px-[43px] py-[50px] w-[503px] max-w-lg  rounded-[40px]">
             <form action="{{ route('auth.login') }}" method="POST">
