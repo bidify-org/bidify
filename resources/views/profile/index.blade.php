@@ -55,7 +55,7 @@
                 <li class="mr-1">
                     <button onclick="showTab('tab-auctions')"
                         class="bg-white inline-block py-2 px-4 text-light-blue hover:text-primary-blue font-semibold transition duration-300 ease-in-out">
-                        Account</button>
+                        Auctions</button>
                 </li>
                 <li class="mr-1">
                     <button onclick="showTab('tab-account')"
