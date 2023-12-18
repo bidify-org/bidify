@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Bid;
 
 
 class AuctionPlaceBidRequest extends FormRequest
@@ -23,6 +24,9 @@ class AuctionPlaceBidRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $maxValue = Bid::where('auction_id', $this->route('auction_id'))->max('amount');
+
         return [
             'amount' => 'required|numeric',
         ];
