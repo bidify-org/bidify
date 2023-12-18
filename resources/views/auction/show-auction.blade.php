@@ -22,8 +22,8 @@
                             @csrf
                             @method('DELETE')
                             <button
-                                class="text-red-600 hover:bg-red-500 hover:text-white rounded-md p-2 duration-200">Remove
-                                Bid</button>
+                                class="text-red-600 hover:bg-red-500 hover:text-white rounded-md p-2 duration-200">Cancel
+                                Auction</button>
                         </form>
                         @endif
                         @endauth
@@ -39,7 +39,7 @@
                     <div class="flex justify-around flex-col gap-5 sm:flex-row">
                         <div>
                             <h3>Current Bid</h3>
-                            <p class="font-bold">@money($topBid)</p>
+                            <p class="font-bold">@money($topBidAmount)</p>
                         </div>
                         @auth()
                         @if (auth()->user()->id === $auction->seller_id)
@@ -94,12 +94,12 @@
                                 class="border border-gray-3 sm:h-[63px] h-[54px] rounded-[5px] flex items-center px-[15px] gap-2">
                                 <p>Bid: </p>
                                 {{-- input bid form --}}
-                                <input type="text" value="{{ $topBid + ($topBid * 0.1) }}"
+                                <input type="text" value="{{ $topBidAmount + ($topBidAmount * 0.1) }}"
                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                     name="amount" id="" placeholder="Put Your Bid Here"
                                     class="w-full bg-white focus:outline-none h-full" />
                                 <p class="select-none text-xs text-gray-400">Minimal of 10% from the current bid:
-                                    @money($topBid + ($topBid * 0.1) )</p>
+                                    @money($topBidAmount + ($topBidAmount * 0.1) )</p>
                             </div>
                             <button
                                 class="py-[15px] h-full border border-gray-3 rounded-[5px] hover:bg-gray-3 duration-200">

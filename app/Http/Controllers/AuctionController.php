@@ -61,8 +61,11 @@ class AuctionController extends Controller
             abort(404);
         }
 
-        $topBid = Bid::where('auction_id', $id)->max('amount');
-        return view('auction.show-auction')->with(['auction' => $auction, 'topBid' => $topBid]);
+        $topBidAmount = Bid::where('auction_id', $id)->max('amount');
+        if (!$topBidAmount) {
+            $topBidAmount = $auction->asking_price;
+        }
+        return view('auction.show-auction')->with(['auction' => $auction, 'topBidAmount' => $topBidAmount]);
     }
 
     /**

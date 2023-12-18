@@ -21,8 +21,14 @@ class BidController extends Controller
 
     public function placeBid(AuctionPlaceBidRequest $request, $auctionId)
     {
-        $currentMaxBidAmount = Bid::where('auction_id', $auctionId)->max('amount');
-        $minBidAmount = $currentMaxBidAmount + ($currentMaxBidAmount * 0.1);
+        $topBidAmount = Bid::where('auction_id', $auctionId)->max('amount');
+
+        // we should check first if there is no bid yet
+        if (!$topBidAmount) {
+            $topBidAmount = Auction::find($auctionId)->starting_price;
+        }
+
+        $minBidAmount = $topBidAmount + ($topBidAmount * 0.1);
 
         $validated = $request->validated();
 
