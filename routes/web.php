@@ -26,18 +26,18 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
 }); //sementara doang, harusnya make "id"
 
-Route::name('auth.')->group(function () {
-    Route::get('/login', [AuthController::class, 'loginForm'])->name('loginForm');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 
     Route::get("/auth/{provider}/redirect", [SocialAuthController::class, 'redirect']);
     Route::get("/auth/{provider}/callback", [SocialAuthController::class, 'callback']);
 
-    Route::get('/register', [AuthController::class, 'registerForm'])->name('registerForm');
-    Route::post('/register', [AuthController::class, 'register'])->name('register');
+    Route::get('/register', [AuthController::class, 'registerForm'])->name('auth.registerForm');
+    Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::resource('auctions', AuctionController::class);
 
