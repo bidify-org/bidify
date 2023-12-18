@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('/search', [PageController::class, 'search']);
+Route::get('/checkout',[PageController::class, 'checkout']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');

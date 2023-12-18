@@ -25,5 +25,11 @@ class PageController extends Controller
 
         return view('home.search-result')->with('data', $data)->with('searchTerm', $searchTerm);
     }
+
+    public function checkout()
+    {
+        $data = Auction::orderBy('created_at', 'desc')->limit(4)->get();
+        return view('auction.checkout')->with('data', $data);
+    }
 }
 
