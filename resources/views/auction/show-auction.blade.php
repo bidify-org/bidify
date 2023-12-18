@@ -17,7 +17,7 @@
                             {{ $auction->title }}
                         </h1>
                         @auth()
-                        @if (auth()->user()->id === $auction->seller_id)
+                        @if (auth()->user()->id === $auction->seller_id && !$auction->winner)
                         <form action="/auctions/{{ $auction->id }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -38,24 +38,44 @@
                     class="mt-[25px] border border-gray-3 rounded-[10px] p-[20px] w-full flex flex-col gap-[20px] font-medium">
                     <div class="flex justify-around flex-col gap-5 sm:flex-row">
                         <div>
-                            <h3>Current Bid</h3>
-                            <p class="font-bold">@money($auction->top_bid_amount)</p>
+                            <h3>
+                                @if(!$auction->winner)
+                                Current Bid
+                                @else
+                                Sold Price
+                                @endif
+                            </h3>
+                            @if(!$auction->winner)
+                            <p class="font-bold">
+                                @money($auction->top_bid_amount)
+                            </p>
+                            @else
+                            <p class="font-bold text-green-600">
+                                @money($auction->top_bid_amount)
+                            </p>
+                            @endif
                         </div>
                         @auth()
-                        @if (auth()->user()->id === $auction->seller_id)
+                        @if (auth()->user()->id === $auction->seller_id && $auction->buy_now_price !== 0)
                         <div>
-                            <h3>Current Buy Now Price</h3>
+                            <h3>
+                                @if(!$auction->winner)
+                                Current Buy Now Price
+                                @else
+                                Last Buy Now Price
+                                @endif
+                            </h3>
                             <p class="font-bold">@money($auction->buy_now_price)</p>
                         </div>
                         @endif
                         @endauth
-
                         <div>
                             <h3>Asking Price</h3>
                             <p>@money($auction->asking_price)</p>
                         </div>
                     </div>
 
+                    @if(!$auction->winner)
                     <div class="text-black/60 font-medium">
                         <h3 class="text-detail">Time Left</h3>
                         <div class="flex items-center gap-1">
@@ -73,7 +93,9 @@
                             <p id="countdown"></p>
                         </div>
                     </div>
+                    @endif
 
+                    @if(!$auction->winner)
                     @auth()
                     @if (auth()->user()->id !== $auction->seller_id)
                     @if($errors->any())
@@ -107,6 +129,7 @@
                             </button>
                         </form>
 
+                        @if ($auction->buy_now_price !== 0)
                         <form class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="">
                             <div>
                                 <h1>Buy Now</h1>
@@ -118,11 +141,32 @@
                                 Buy Now
                             </button>
                         </form>
+                        @endif
                     </div>
                     @endif
                     @endauth
+                    @endif
                 </div>
 
+                @auth()
+                @if (auth()->user()->id === $auction->seller_id && $auction->bids->count() > 0 && $auction->winner_id
+                ===
+                null)
+                <form action="/auctions/{{ $auction->id }}/close" method="post">
+                    @csrf
+                    <button
+                        class="mt-[25px] rounded-[10px] p-[20px] w-full font-medium text-white bg-primary-blue hover:bg-light-blue duration-200">
+                        Close Auction with @money($auction->top_bid_amount)
+                    </button>
+                </form>
+                @endif
+                @if (auth()->user()->id === $auction->seller_id && $auction->winner_id !== null)
+                <button disabled
+                    class="mt-[25px] rounded-[10px] p-[20px] w-full font-medium text-slate-600 bg-slate-300">
+                    Auction closed with @money($auction->top_bid_amount)
+                </button>
+                @endif
+                @endauth
 
                 <div class="mt-[25px] flex flex-col gap-1 text-body">
                     <div class="flex items-center gap-2">
@@ -178,7 +222,7 @@
                         </svg>
 
 
-                        <p class="font-bold">Winner:
+                        <p class="font-bold @if($auction->winner) text-green-600 @endif">Winner:
                             {{ $auction->winner ? $auction->winner->username : 'No winner yet' }}</p>
                     </div>
                 </div>
@@ -200,9 +244,15 @@
                         @foreach ($auction->bids->sortByDesc('created_at') as $bid)
                         <div class="flex justify-center flex-col">
                             <div class="py-5 px-3 grid grid-cols-4 text-black font-medium">
-                                <p class="col-span-2"> {{ $bid->user->name }}</p>
+                                @if($bid->user->id == $auction->winner_id)
+                                <p class="col-span-2 font-bold text-green-600">{{ $bid->user->name }} (Winner)</p>
+                                <p class="font-bold text-green-600">@money($bid->amount)</p>
+                                <p title="{{ $bid->created_at }}">{{ $bid->created_at->diffForHumans() }}</p>
+                                @else
+                                <p class="col-span-2">{{ $bid->user->name }}</p>
                                 <p>@money($bid->amount)</p>
                                 <p title="{{ $bid->created_at }}">{{ $bid->created_at->diffForHumans() }}</p>
+                                @endif
                             </div>
                             <div class="border-b border-gray-3"></div>
                         </div>

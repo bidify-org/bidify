@@ -24,7 +24,7 @@ class AuctionController extends Controller
      */
     public function create()
     {
-        return view('example.create-auction');
+        return view('auction.create-auction');
     }
 
     /**
@@ -40,7 +40,7 @@ class AuctionController extends Controller
         $auction->title = $validated['title'];
         $auction->description = $validated['description'];
         $auction->asking_price = $validated['asking_price'];
-        $auction->buy_now_price = $validated['asking_price'] * 3;
+        $auction->buy_now_price = $validated['buy_now_price'];
         $auction->top_bid_amount = $validated['asking_price'];
         $auction->ends_at = $validated['ends_at'];
 
@@ -49,6 +49,21 @@ class AuctionController extends Controller
         $auction->save();
 
         return redirect()->route('auctions.index');
+    }
+
+    public function closeAuction(string $id)
+    {
+        $auction = Auction::find($id);
+        if (!$auction) {
+            abort(404);
+        }
+
+        $topBidder = Bid::where('auction_id', $id)->orderBy('amount', 'desc')->first();
+
+        $auction->winner_id = $topBidder->user_id;
+        $auction->save();
+
+        return redirect()->route('auctions.show', $id)->with('success', 'Auction closed successfully');
     }
 
     /**
@@ -64,22 +79,6 @@ class AuctionController extends Controller
         $minBidAmount = ceil($auction->top_bid_amount + ($auction->top_bid_amount * 0.1));
 
         return view('auction.show-auction')->with(compact('auction', 'minBidAmount'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**

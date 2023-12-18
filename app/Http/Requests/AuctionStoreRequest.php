@@ -27,6 +27,7 @@ class AuctionStoreRequest extends FormRequest
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'asking_price' => 'required|numeric',
+            'buy_now_price' => 'numeric',
             'ends_at' => 'required|date|after:today',
         ];
     }
