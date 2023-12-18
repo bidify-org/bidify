@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuctionPlaceBidRequest;
-use Illuminate\Http\Request;
-use App\Models\Bid;
 use App\Models\Auction;
-use Illuminate\Validation\Rule;
-use DB;
-use App\Models\User;
+use App\Models\Bid;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class BidController extends Controller
 {
@@ -24,28 +21,31 @@ class BidController extends Controller
 
     public function placeBid(AuctionPlaceBidRequest $request, $auctionId)
     {
+        $currentMaxBidAmount = Bid::where('auction_id', $auctionId)->max('amount');
+        $minBidAmount = $currentMaxBidAmount + ($currentMaxBidAmount * 0.1);
 
-    $topBid = Bid::where('auction_id', $auctionId)->max('amount');
+        $validated = $request->validated();
 
-    $validator = Validator::make($request->all(), [
-        'amount' => 'required|numeric|min:' . ($topBid + 50000),
-    ]);
+        if (((int) $validated['amount']) < $minBidAmount) {
+            return redirect()
+                ->route('auctions.show', $auctionId)
+                ->withErrors([
+                    'message' => 'Your bid does not reach the minimum amount of Rp' . number_format($minBidAmount),
+                ]);
+        }
 
-    if ($validator->fails()) {
+        DB::transaction(function () use ($request, $auctionId) {
+            $bid = new Bid();
+            $bid->user_id = auth()->user()->id;
+            $bid->auction_id = $auctionId;
+            $bid->amount = $request->validated(['amount']);
+            $bid->save();
 
-        return redirect()->route('auctions.show', $auctionId)
-            ->withErrors([
-                'message' => 'Bid does not reach minimum amount',
-            ]);
-    } 
-        $bid = new Bid();
+            $currentAuction = Auction::find($auctionId);
+            $currentAuction->buy_now_price = $request->validated(['amount']) * 3;
+            $currentAuction->save();
+        });
 
-        $bid->user_id = auth()->user()->id;
-        $bid->auction_id = $auctionId;
-        $bid->amount = $request->validated(['amount']);
-
-        $bid->save();
-        
 
         return redirect()->route('auctions.show', $auctionId);
     }

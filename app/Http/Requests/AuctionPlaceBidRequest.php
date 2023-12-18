@@ -24,12 +24,8 @@ class AuctionPlaceBidRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        $maxValue = Bid::where('auction_id', $this->route('auction_id'))->max('amount');
-
         return [
             'amount' => 'required|numeric',
         ];
     }
-    
 }

@@ -39,7 +39,7 @@
                     <div class="flex justify-around flex-col gap-5 sm:flex-row">
                         <div>
                             <h3>Current Bid</h3>
-                            <p class="font-bold">@money($topBid)</p> 
+                            <p class="font-bold">@money($topBid)</p>
                         </div>
                         @auth()
                         @if (auth()->user()->id === $auction->seller_id)
@@ -76,6 +76,15 @@
 
                     @auth()
                     @if (auth()->user()->id !== $auction->seller_id)
+                    @if($errors->any())
+                    <div class="flex flex-col gap-2 my-2">
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-[10px] relative"
+                            role="alert">
+                            <strong class="font-bold">Oops!</strong>
+                            <span class="block sm:inline"> {{ $errors->first() }} </span>
+                        </div>
+                    </div>
+                    @enderror
                     <div class="grid grid-cols-2 gap-5 items-end">
                         <form action="/auctions/{{ $auction->id }}/bidders" class="grid grid-cols-1 gap-4"
                             method="post">
@@ -85,10 +94,12 @@
                                 class="border border-gray-3 sm:h-[63px] h-[54px] rounded-[5px] flex items-center px-[15px] gap-2">
                                 <p>Bid: </p>
                                 {{-- input bid form --}}
-                                <input type="text"
+                                <input type="text" value="{{ $topBid + ($topBid * 0.1) }}"
                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                     name="amount" id="" placeholder="Put Your Bid Here"
                                     class="w-full bg-white focus:outline-none h-full" />
+                                <p class="select-none text-xs text-gray-400">Minimal of 10% from the current bid:
+                                    @money($topBid + ($topBid * 0.1) )</p>
                             </div>
                             <button
                                 class="py-[15px] h-full border border-gray-3 rounded-[5px] hover:bg-gray-3 duration-200">
