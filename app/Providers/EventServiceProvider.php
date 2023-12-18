@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Bid;
+use App\Observers\BidObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            // ... other providers
+                // ... other providers
             \SocialiteProviders\Google\GoogleExtendSocialite::class . '@handle',
         ],
     ];
@@ -30,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Bid::observe(BidObserver::class);
     }
 
     /**

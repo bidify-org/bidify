@@ -41,18 +41,11 @@ class BidController extends Controller
                 ]);
         }
 
-        DB::transaction(function () use ($request, $auctionId) {
-            $bid = new Bid();
-            $bid->user_id = auth()->user()->id;
-            $bid->auction_id = $auctionId;
-            $bid->amount = $request->validated(['amount']);
-            $bid->save();
-
-            $currentAuction = Auction::find($auctionId);
-            $currentAuction->buy_now_price = $request->validated(['amount']) * 3;
-            $currentAuction->save();
-        });
-
+        $bid = new Bid();
+        $bid->user_id = auth()->user()->id;
+        $bid->auction_id = $auctionId;
+        $bid->amount = $request->validated(['amount']);
+        $bid->save();
 
         return redirect()->route('auctions.show', $auctionId);
     }

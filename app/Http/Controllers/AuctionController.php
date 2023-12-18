@@ -41,6 +41,7 @@ class AuctionController extends Controller
         $auction->description = $validated['description'];
         $auction->asking_price = $validated['asking_price'];
         $auction->buy_now_price = $validated['asking_price'] * 3;
+        $auction->top_bid_amount = $validated['asking_price'];
         $auction->ends_at = $validated['ends_at'];
 
         $path = $request->file('image')->store('public/images');

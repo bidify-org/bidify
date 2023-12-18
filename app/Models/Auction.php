@@ -16,6 +16,8 @@ class Auction extends Model
         'description',
         'image_url',
         'asking_price',
+        'buy_now_price',
+        'top_bid_amount',
         'ends_at',
         'created_at',
         'updated_at'
