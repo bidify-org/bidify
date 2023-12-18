@@ -15,23 +15,24 @@
                     <p class="text-subtitle text-black/70">{{ $data->user->name }}</p>
                     <p class="text-subtitle text-black/70">{{ $data->user->email }}</p>
                     @if ($data->user->address)
-                        <div class="flex items-center gap-3 py-2">
-                            <p class="text-subtitle text-black/70">{{ $data->user->address }}</p>
-                        </div>
+                    <div class="flex items-center gap-3 py-2">
+                        <p class="text-subtitle text-black/70">{{ $data->user->address }}</p>
+                    </div>
                     @else
-                        <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
-                        <form class="flex flex-col" method="POST" action="{{ route('profile.updateAddress') }}">
-                            @method('PATCH')
-                            @csrf
-                            <textarea id="address" name="address" type="text" rows="5"
-                                class="p-4 font-body text-body bg-gray3 border border-gray-3 rounded-[10px] bg-white" placeholder="Address">{{ old('address') }}</textarea>
-                            @error('address')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                            <button type="submit"
-                                class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Save
-                                Address</button>
-                        </form>
+                    <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
+                    <form class="flex flex-col" method="POST" action="{{ route('profile.updateAddress') }}">
+                        @method('PATCH')
+                        @csrf
+                        <textarea id="address" name="address" type="text" rows="5"
+                            class="p-4 font-body text-body bg-gray3 border border-gray-3 rounded-[10px] bg-white"
+                            placeholder="Address">{{ old('address') }}</textarea>
+                        @error('address')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        <button type="submit"
+                            class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Save
+                            Address</button>
+                    </form>
                     @endif
                 </div>
             </div>
@@ -69,14 +70,14 @@
                     <div
                         class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] gap-x-[20px] items-center mt-[25px] rounded-[10px]">
                         @forelse ($data->wonAuctions as $item)
-                            <div class="flex">
-                                <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                                    title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
-                                    endsAt="{{ $item->ends_at }}">
-                                </x-bid-card>
-                            </div>
+                        <div class="flex">
+                            <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                                title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
+                                endsAt="{{ $item->ends_at }}">
+                            </x-bid-card>
+                        </div>
                         @empty
-                            <p class="flex items-center">No Auctions won</p>
+                        <p class="flex items-center">No Auctions won</p>
                         @endforelse
                     </div>
                 </div>
@@ -90,14 +91,14 @@
                     <div
                         class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] gap-x-[20px] items-center mt-[25px] rounded-[10px]">
                         @forelse ($data->bids as $item)
-                            <div class="flex">
-                                <x-bid-card ref="{{ route('auctions.show', $item->auction->id) }}"
-                                    img="{{ $item->auction->image_url }}" title="{{ $item->auction->title }}"
-                                    price="{{ $item->top_bid_amount }}" endsAt="{{ $item->auction->ends_at }}">
-                                </x-bid-card>
-                            </div>
+                        <div class="flex">
+                            <x-bid-card ref="{{ route('auctions.show', $item->auction->id) }}"
+                                img="{{ $item->auction->image_url }}" title="{{ $item->auction->title }}"
+                                price="{{ $item->amount }}" endsAt="{{ $item->auction->ends_at }}">
+                            </x-bid-card>
+                        </div>
                         @empty
-                            <p class="flex items-center">No Bids</p>
+                        <p class="flex items-center">No Bids</p>
                         @endforelse
                     </div>
                 </div>
@@ -114,14 +115,14 @@
                     <div
                         class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] gap-x-[20px] items-center mt-[25px] rounded-[10px]">
                         @forelse ($data->ownedAuctions as $item)
-                            <div class="flex">
-                                <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                                    title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
-                                    endsAt="{{ $item->ends_at }}">
-                                </x-bid-card>
-                            </div>
+                        <div class="flex">
+                            <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                                title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
+                                endsAt="{{ $item->ends_at }}">
+                            </x-bid-card>
+                        </div>
                         @empty
-                            <p class="flex items-center">No Auctions</p>
+                        <p class="flex items-center">No Auctions</p>
                         @endforelse
                     </div>
                 </div>
@@ -162,15 +163,15 @@
                         </div>
                     </div>
 
-                    <form id="editAddressForm"
-                        class="my-2 @if (!$errors->any()) hidden @else flex @endif flex-col"
+                    <form id="editAddressForm" class="my-2 @if (!$errors->any()) hidden @else flex @endif flex-col"
                         method="POST" action="{{ route('profile.updateAddress') }}">
                         @method('PATCH')
                         @csrf
                         <textarea id="address" name="address" type="text" rows="5"
-                            class="p-4 font-body text-body bg-gray3 border border-gray-3 rounded-[10px] bg-white" placeholder="New Address">{{ old('address') }}</textarea>
+                            class="p-4 font-body text-body bg-gray3 border border-gray-3 rounded-[10px] bg-white"
+                            placeholder="New Address">{{ old('address') }}</textarea>
                         @error('address')
-                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                         <button type="submit"
                             class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2 max-w-[10rem]">Save
@@ -191,8 +192,8 @@
 
     </x-container>
     @push('scripts')
-        <script type="text/javascript">
-            function showTab(tabId) {
+    <script type="text/javascript">
+        function showTab(tabId) {
                 const tabs = document.querySelectorAll('.py-4');
                 tabs.forEach(tab => tab.classList.add('hidden'));
 
@@ -228,6 +229,6 @@
 
             const editAddressBtn = document.getElementById('editAddressBtn');
             editAddressBtn.addEventListener('click', toggleEditAddressForm);
-        </script>
+    </script>
     @endpush
 </x-layout>

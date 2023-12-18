@@ -1,15 +1,14 @@
 @props(['ref', 'img', 'title', 'price', 'endsAt'])
 
-
 <a href="{{ $ref }}"
     class="md:w-[13rem] md:max-w-full max-w-[10rem] w-auto min-w-[9rem] h-auto border-solid border-[1px] border-gray-3 rounded-[10px] overflow-clip flex flex-col">
-    <img src={{ $img }}
-        class="object-cover md:w-[210px] md:h-[210px] w-[160px] h-[160px] aspect-square object-center" alt="" />
+    <img src={{ $img }} class="object-cover md:w-[210px] md:h-[210px] w-[160px] h-[160px] aspect-square object-center"
+        alt="" />
     <div class="p-[5px] font-body flex flex-col gap-[10px]">
         <h1 class="text-detail font-medium min-h-[3rem]">{{ Str::limit($title, 40) }}</h1>
         <div>
             <p class="text-smallest text-black/70">At..</p>
-            <h1 class="text-body_bold text-dark-blue">@money($price)</h1>
+            <h1 class="text-body_bold text-dark-blue">@money((int)$price)</h1>
         </div>
         <div class="flex gap-[5px]">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
