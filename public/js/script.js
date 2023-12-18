@@ -53,4 +53,4 @@ function sideScroll(element, direction, speed, distance, step) {
             clearInterval(slideTimer);
         }
     }, speed);
-}   
+}
