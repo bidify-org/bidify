@@ -21,12 +21,7 @@ class BidController extends Controller
 
     public function placeBid(AuctionPlaceBidRequest $request, $auctionId)
     {
-        $topBidAmount = Bid::where('auction_id', $auctionId)->max('amount');
-
-        // we should check first if there is no bid yet
-        if (!$topBidAmount) {
-            $topBidAmount = Auction::find($auctionId)->starting_price;
-        }
+        $topBidAmount = Auction::find($auctionId)->top_bid_amount;
 
         // minimum bid amount is 10% higher than the top bid amount rounded up
         $minBidAmount = ceil($topBidAmount + ($topBidAmount * 0.1));

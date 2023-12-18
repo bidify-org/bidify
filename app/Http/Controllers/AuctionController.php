@@ -57,16 +57,13 @@ class AuctionController extends Controller
     public function show(string $id)
     {
         $auction = Auction::find($id);
-
         if (!$auction) {
             abort(404);
         }
 
-        $topBidAmount = Bid::where('auction_id', $id)->max('amount');
-        if (!$topBidAmount) {
-            $topBidAmount = $auction->asking_price;
-        }
-        return view('auction.show-auction')->with(['auction' => $auction, 'topBidAmount' => $topBidAmount]);
+        $minBidAmount = ceil($auction->top_bid_amount + ($auction->top_bid_amount * 0.1));
+
+        return view('auction.show-auction')->with(compact('auction', 'minBidAmount'));
     }
 
     /**
