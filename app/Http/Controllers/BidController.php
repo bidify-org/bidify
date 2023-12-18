@@ -28,7 +28,8 @@ class BidController extends Controller
             $topBidAmount = Auction::find($auctionId)->starting_price;
         }
 
-        $minBidAmount = $topBidAmount + ($topBidAmount * 0.1);
+        // minimum bid amount is 10% higher than the top bid amount rounded up
+        $minBidAmount = ceil($topBidAmount + ($topBidAmount * 0.1));
 
         $validated = $request->validated();
 

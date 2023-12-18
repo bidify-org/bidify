@@ -94,12 +94,12 @@
                                 class="border border-gray-3 sm:h-[63px] h-[54px] rounded-[5px] flex items-center px-[15px] gap-2">
                                 <p>Bid: </p>
                                 {{-- input bid form --}}
-                                <input type="text" value="{{ $topBidAmount + ($topBidAmount * 0.1) }}"
+                                <input type="text" value="{{ ceil($topBidAmount + ($topBidAmount * 0.1)) }}"
                                     onkeypress="if ( isNaN( String.fromCharCode(event.keyCode) )) return false;"
                                     name="amount" id="" placeholder="Put Your Bid Here"
                                     class="w-full bg-white focus:outline-none h-full" />
                                 <p class="select-none text-xs text-gray-400">Minimal of 10% from the current bid:
-                                    @money($topBidAmount + ($topBidAmount * 0.1) )</p>
+                                    @money(ceil($topBidAmount + ($topBidAmount * 0.1)))</p>
                             </div>
                             <button
                                 class="py-[15px] h-full border border-gray-3 rounded-[5px] hover:bg-gray-3 duration-200">
