@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Auction;
 use App\Models\Bid;
+use App\Observers\AuctionObserver;
 use App\Observers\BidObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -33,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Bid::observe(BidObserver::class);
+        Auction::observe(AuctionObserver::class);
     }
 
     /**

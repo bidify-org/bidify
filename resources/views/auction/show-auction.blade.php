@@ -6,8 +6,8 @@
 
         <section class="mt-[35px] grid grid-cols-1 justify-between lg:grid-cols-2 xl:gap-0 gap-10">
             <div class="justify-self-center md:justify-self-start">
-                <img src="{{ $auction->image_url }}" class="md:h-[500px] md:w-[500px] h-full w-full object-cover"
-                    alt="" />
+                <img src="{{ Storage::url($auction->image_url) }}"
+                    class="md:h-[500px] md:w-[500px] h-full w-full object-cover" alt="" />
             </div>
 
             <div class="justify-self-center md:justify-self-start font-body w-full">
@@ -131,7 +131,8 @@
 
                         @if ($auction->buy_now_price !== 0)
                         {{-- BUY NOW FORM --}}
-                        <form action="/auctions/{{ $auction->id }}" class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="post">
+                        <form action="/auctions/{{ $auction->id }}"
+                            class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="post">
                             @csrf
                             <div>
                                 <h1>Buy Now</h1>

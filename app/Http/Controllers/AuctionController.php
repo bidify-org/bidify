@@ -45,7 +45,7 @@ class AuctionController extends Controller
         $auction->ends_at = $validated['ends_at'];
 
         $path = $request->file('image')->store('public/images');
-        $auction->image_url = Storage::url($path);
+        $auction->image_url = $path;
         $auction->save();
 
         return redirect()->route('auctions.index');
@@ -72,11 +72,11 @@ class AuctionController extends Controller
         if (!$auction) {
             abort(404);
         }
-    
+
         $auction->winner_id = auth()->user()->id;
         $auction->top_bid_amount = $auction->buy_now_price;
         $auction->save();
-    
+
         return redirect()->route('auctions.show', $id);
     }
 
