@@ -44,4 +44,5 @@ class BidController extends Controller
 
         return redirect()->route('auctions.show', $auctionId);
     }
+
 }

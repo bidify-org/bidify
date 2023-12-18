@@ -80,7 +80,7 @@
                         <h3 class="text-detail">Time Left</h3>
                         <div class="flex items-center gap-1">
                             <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                                xmlns="http://www.w3.org/2000/svg">gi
                                 <path
                                     d="M21.6147 13.8021C21.6147 18.8333 17.5313 22.9167 12.5001 22.9167C7.46883 22.9167 3.3855 18.8333 3.3855 13.8021C3.3855 8.77083 7.46883 4.6875 12.5001 4.6875C17.5313 4.6875 21.6147 8.77083 21.6147 13.8021Z"
                                     stroke="#0D1321" stroke-width="1.5" stroke-linecap="round"
@@ -130,7 +130,9 @@
                         </form>
 
                         @if ($auction->buy_now_price !== 0)
-                        <form class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="">
+                        {{-- BUY NOW FORM --}}
+                        <form action="/auctions/{{ $auction->id }}" class="grid grid-cols-1 gap-4 text-subtitle font-bold" method="post">
+                            @csrf
                             <div>
                                 <h1>Buy Now</h1>
                                 <h1 class="sm:text-title_02 font-bold">@money($auction->buy_now_price)</h1>
