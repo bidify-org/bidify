@@ -23,6 +23,7 @@ Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('/search', [PageController::class, 'search']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
 }); //sementara doang, harusnya make "id"
 
 Route::name('auth.')->group(function () {

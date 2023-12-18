@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Auction;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProfileUpdateAddress;
 
 class ProfileController extends Controller
 {
@@ -23,5 +22,16 @@ class ProfileController extends Controller
         ];
 
         return view('profile.index')->with('data', $data);
+    }
+
+    public function updateAddress(ProfileUpdateAddress $request)
+    {
+        $user = auth()->user();
+        $validated = $request->validated();
+
+        $user->address = $validated['address'];
+        $user->save();
+
+        return redirect()->route('profile.index');
     }
 }

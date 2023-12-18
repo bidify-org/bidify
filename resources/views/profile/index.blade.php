@@ -9,13 +9,38 @@
                     <p class="text-subtitle text-black/70">{{ $data->user->email }}</p>
                     @if ($data->user->address)
                     <p class="text-subtitle text-black/70">{{ $data->user->address }}</p>
-                    @else
-                    <div>
-                        <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
-                        <button
-                            class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Add
+                    <button id="editAddressBtn"
+                        class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Edit
+                        Address</button>
+                    <form id="editAddressForm" class="@if(!$errors->any()) hidden @else flex @endif flex-col"
+                        method="POST" action="{{ route('profile.updateAddress') }}">
+                        @method('PATCH')
+                        @csrf
+                        <textarea id="address" name="address" type="text" rows="5"
+                            class="p-4 font-body text-body bg-gray3 border border-gray-3 rounded-[10px] bg-white"
+                            placeholder="Address">{{ old('address') }}</textarea>
+                        @error('address')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        <button type="submit"
+                            class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Save
                             Address</button>
-                    </div>
+                    </form>
+                    @else
+                    <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
+                    <form class="flex flex-col" method="POST" action="{{ route('profile.updateAddress') }}">
+                        @method('PATCH')
+                        @csrf
+                        <textarea id="address" name="address" type="text" rows="5"
+                            class="p-4 font-body text-body bg-gray3 border border-gray-3 rounded-[10px] bg-white"
+                            placeholder="Address">{{ old('address') }}</textarea>
+                        @error('address')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                        <button type="submit"
+                            class="bg-primary-blue hover:bg-hover-blue duration-200 text-white px-3 py-2 rounded-[10px] my-2">Save
+                            Address</button>
+                    </form>
                     @endif
                 </div>
             </div>
@@ -90,4 +115,31 @@
             </div>
         </section>
     </x-container>
+    @push('scripts')
+    <script type="text/javascript">
+        let isEditAddressFormVisible = {{ $errors->any() ? 'true' : 'false' }}
+        const toggleEditAddressForm = () => {
+            if (isEditAddressFormVisible) {
+                hideEditAddress();
+                isEditAddressFormVisible = false;
+            } else {
+                showEditAddress();
+                isEditAddressFormVisible = true;
+            }
+        }
+
+        const showEditAddress = () => {
+            document.getElementById('editAddressForm').classList.remove('hidden');
+            document.getElementById('editAddressForm').classList.add('flex');
+        }
+
+        const hideEditAddress = () => {
+            document.getElementById('editAddressForm').classList.add('hidden');
+            document.getElementById('editAddressForm').classList.remove('flex');
+        }
+
+        let editAddressBtn = document.getElementById('editAddressBtn');
+        editAddressBtn.addEventListener('click', toggleEditAddressForm);
+    </script>
+    @endpush
 </x-layout>

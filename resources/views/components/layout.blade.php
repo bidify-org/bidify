@@ -22,5 +22,6 @@
     <x-footer />
 </body>
 <script src="/js/script.js"></script>
+@stack('scripts')
 
 </html>
