@@ -4,11 +4,11 @@
             <div class="flex sm:flex-row flex-col sm:gap-10 gap-5 sm:items-center items-start">
                 <img src="assets/profile_dummy.jpeg" class="w-[200px] h-[200px] object-cover rounded-full" />
                 <div>
-                    <h1 class="text-main_02 mb-2">{{ auth()->user()->username }}</h1>
-                    <p class="text-subtitle text-black/70">{{ auth()->user()->name }}</p>
-                    <p class="text-subtitle text-black/70">{{ auth()->user()->email }}</p>
-                    @if (auth()->user()->address)
-                    <p class="text-subtitle text-black/70">{{ auth()->user()->address }}</p>
+                    <h1 class="text-main_02 mb-2">{{ $data->user->username }}</h1>
+                    <p class="text-subtitle text-black/70">{{ $data->user->name }}</p>
+                    <p class="text-subtitle text-black/70">{{ $data->user->email }}</p>
+                    @if ($data->user->address)
+                    <p class="text-subtitle text-black/70">{{ $data->user->address }}</p>
                     @else
                     <div>
                         <p class="text-subtitle text-red-400 ">Address not assigned yet.</p>
@@ -52,6 +52,20 @@
                     <h3 class="sm:text-subtitle text-body text-black/50">Your bids.</h3>
                 </div>
             </div>
+            <div
+                class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] sm:gap-x-0 gap-x-[20px] justify-between items-center mt-[25px] rounded-[10px]">
+                @forelse ($data->bids as $item)
+                <div class="flex">
+                    <x-bid-card ref="{{ route('auctions.show', $item->auction->id) }}"
+                        img="{{ $item->auction->image_url }}" title="{{ $item->auction->title }}"
+                        price="{{ $item->auction->asking_price }}" endsAt="{{ $item->auction->ends_at }}">
+                    </x-bid-card>
+                </div>
+                @empty
+                <p class="flex items-center">No Bids</p>
+                @endforelse
+            </div>
+        </section>
         </section>
 
         {{-- barang yg dia jual --}}

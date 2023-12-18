@@ -10,11 +10,13 @@ class ProfileController extends Controller
 
     public function index()
     {
-        $wonAuctions = auth()->user()->wonAuctions()->get();
-        $ownedAuctions = auth()->user()->auctions()->get();
-        $bids = auth()->user()->bids()->get();
+        $user = auth()->user();
+        $wonAuctions = $user->wonAuctions()->get();
+        $ownedAuctions = $user->auctions()->get();
+        $bids = $user->bids()->get();
 
         $data = (object) [
+            'user' => $user,
             'wonAuctions' => $wonAuctions,
             'ownedAuctions' => $ownedAuctions,
             'bids' => $bids,
