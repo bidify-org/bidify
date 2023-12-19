@@ -32,6 +32,12 @@ Run the migrations
 php artisan migrate
 ```
 
+Create storage link
+
+```bash
+php artisan storage:link
+```
+
 Start the server
 
 ```bash
