@@ -25,5 +25,9 @@ class PageController extends Controller
 
         return view('home.search-result')->with('data', $data)->with('searchTerm', $searchTerm);
     }
+
+    public function wishlist(){
+        return view('profile.wishlist');
+    }
 }
 

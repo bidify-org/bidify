@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateAddress;
+use App\Models\Auction;
 
 class ProfileController extends Controller
 {
@@ -47,5 +48,10 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.index');
+    }
+
+    public function wishlist(){
+        $data = Auction::orderBy('created_at', 'desc')->limit(9)->get();
+        return view('profile.wishlist')->with('data', $data);
     }
 }

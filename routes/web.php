@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile/address', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');
 }); //sementara doang, harusnya make "id"
 
+Route::get('/wishlist', [ProfileController::class, 'wishlist']);
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');

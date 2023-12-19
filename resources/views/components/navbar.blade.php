@@ -1,5 +1,5 @@
 <div class="font-body fixed w-full top-0 z-50">
-    <nav class="flex h-16 items-center border-b-[1px] border-gray-3 bg-white">
+    <nav class="flex h-16 items-center border-b-[1px] border-gray-3 bg-white/80 backdrop-blur-md">
         <x-container>
             <div class="flex sm:gap-[2.8rem] gap-5 w-full items-center">
                 <a href="/">
@@ -23,7 +23,7 @@
 
                         <input type="search" name="search" placeholder="Search on Bidify"
                             class="w-full py-[0.5rem] bg-transparent
-                            focus:outline-none font-body pr-5" />
+                            focus:outline-none font-body pr-5 " />
                     </div>
                 </form>
 
@@ -42,7 +42,7 @@
 
                     @if (auth()->check())
                         <div class="flex gap-5 items-center">
-                            <a class="font-bold text-primary-blue">
+                            <a href="{{ url('wishlist') }}" class="font-bold text-primary-blue">
                                 <svg width="38" height="38" viewBox="0 0 38 38" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path

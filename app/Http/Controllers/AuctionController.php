@@ -107,8 +107,9 @@ class AuctionController extends Controller
         }
 
         $minBidAmount = ceil($auction->top_bid_amount + ($auction->top_bid_amount * 0.1));
+        $data = Auction::orderBy('created_at', 'desc')->limit(12)->get();
 
-        return view('auction.show-auction')->with(compact('auction', 'minBidAmount'));
+        return view('auction.show-auction')->with(compact('auction', 'minBidAmount', 'data'));
     }
 
     /**
