@@ -12,11 +12,11 @@ class ProfileController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $wonAuctions = $user->wonAuctions()->get();
-        $ownedAuctions = $user->auctions()->get();
+        $wonAuctions = $user->wonAuctions()->latest()->get();
+        $ownedAuctions = $user->auctions()->latest()->get();
 
         // Get each auction that the user has bid on
-        $biddedAuctions = $user->bids()->get()->map(function ($bid) {
+        $biddedAuctions = $user->bids()->latest()->get()->map(function ($bid) {
             return $bid->auction;
         });
 
@@ -53,8 +53,8 @@ class ProfileController extends Controller
 
     public function wishlist()
     {
-        $wishlists = Wishlist::where('user_id', auth()->user()->id)->with('auction')->get();
-        $recommendations = Auction::orderBy('created_at', 'desc')->limit(9)->get();
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->with('auction')->latest()->get();
+        $recommendations = Auction::latest()->limit(9)->get();
         return view('profile.wishlist')->with(compact('wishlists', 'recommendations'));
     }
 }
