@@ -26,8 +26,7 @@
                 @forelse ($data as $item)
                     <div class="flex">
                         <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
-                            endsAt="{{ $item->ends_at }}">
+                            title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
                         </x-bid-card>
                     </div>
                 @empty
@@ -169,7 +168,7 @@
                 @forelse ($data as $item)
                     <div class="flex">
                         <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
+                            title="{{ $item->title }}" price="{{ $item->asking_price }}"
                             endsAt="{{ $item->ends_at }}">
                         </x-bid-card>
                     </div>
