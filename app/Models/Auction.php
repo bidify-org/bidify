@@ -41,4 +41,9 @@ class Auction extends Model
     {
         return $this->belongsTo(User::class, 'winner_id');
     }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

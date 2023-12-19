@@ -4,24 +4,23 @@
             <div class="flex justify-between items-center">
                 <div class="flex flex-col font-body">
                     <h1 class="sm:text-main_03 text-title_02">Wishlist</h1>
-                    <h3 class="sm:text-subtitle text-body text-black/50">Your wishlist list.</h3>
+                    <h3 class="sm:text-subtitle text-body text-black/50">Items you want to buy.</h3>
                 </div>
             </div>
 
-            {{-- template buat card list
             <div
                 class="no-scrollbar grid sm:grid-cols-[repeat(auto-fit,minmax(0,13rem))] grid-cols-2 gap-y-[30px] gap-x-[20px] items-center mt-[25px] rounded-[10px]">
-                @forelse ($data->wonAuctions as $item)
-                    <div class="flex">
-                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->top_bid_amount }}"
-                            endsAt="{{ $item->ends_at }}">
-                        </x-bid-card>
-                    </div>
+                @forelse ($wishlists as $item)
+                <div class="flex">
+                    <x-bid-card ref="{{ route('auctions.show', $item->auction->id) }}"
+                        img="{{ $item->auction->image_url }}" title="{{ $item->auction->title }}"
+                        price="{{ $item->auction->top_bid_amount }}" endsAt="{{ $item->auction->ends_at }}">
+                    </x-bid-card>
+                </div>
                 @empty
-                    <p class="flex items-center">No Wishlist</p>
+                <p class="flex items-center">No Wishlist</p>
                 @endforelse
-            </div> --}}
+            </div>
 
 
         </section>
@@ -36,14 +35,14 @@
             </div>
             <div id="container"
                 class="overflow-x-scroll no-scrollbar flex mt-[25px] rounded-[10px] md:gap-[1.2rem] gap-[20px] scroll-smooth">
-                @forelse ($data as $item)
-                    <div class="flex">
-                        <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
-                            title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
-                        </x-bid-card>
-                    </div>
+                @forelse ($recommendations as $item)
+                <div class="flex">
+                    <x-bid-card ref="{{ route('auctions.show', $item->id) }}" img="{{ $item->image_url }}"
+                        title="{{ $item->title }}" price="{{ $item->asking_price }}" endsAt="{{ $item->ends_at }}">
+                    </x-bid-card>
+                </div>
                 @empty
-                    <p class="flex items-center">No data</p>
+                <p class="flex items-center">No data</p>
                 @endforelse
             </div>
 

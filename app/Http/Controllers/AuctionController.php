@@ -96,6 +96,27 @@ class AuctionController extends Controller
         return redirect()->route('auctions.show', $id);
     }
 
+    public function wishlist(string $id)
+    {
+        $auction = Auction::find($id);
+        if (!$auction) {
+            abort(404);
+        }
+
+        // if the auction is already wishlisted, un-wishlist it
+        if ($auction->wishlists()->where('user_id', auth()->user()->id)->exists()) {
+            $auction->wishlists()->where('user_id', auth()->user()->id)->delete();
+            return redirect()->route('auctions.show', $id)->with('success', 'Removed from wishlist');
+        }
+
+        $auction->wishlists()->create([
+            'user_id' => auth()->user()->id,
+            'auction_id' => $id
+        ]);
+
+        return redirect()->route('auctions.show', $id)->with('success', 'Added to wishlist');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -106,10 +127,11 @@ class AuctionController extends Controller
             abort(404);
         }
 
+        $wishlisted = $auction->wishlists()->where('user_id', auth()->user()->id)->exists();
         $minBidAmount = ceil($auction->top_bid_amount + ($auction->top_bid_amount * 0.1));
         $data = Auction::orderBy('created_at', 'desc')->limit(12)->get();
 
-        return view('auction.show-auction')->with(compact('auction', 'minBidAmount', 'data'));
+        return view('auction.show-auction')->with(compact('auction', 'minBidAmount', 'data', 'wishlisted'));
     }
 
     /**

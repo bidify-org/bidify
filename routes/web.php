@@ -47,3 +47,4 @@ Route::post('/auctions/{auctionId}/close', [AuctionController::class, 'closeAuct
 Route::post('/auctions/{auctionId}/bidders', [BidController::class, 'placeBid'])->name('bids.placeBid');
 Route::get('/auctions/{auctionId}/checkout', [AuctionController::class, 'checkout'])->name('auctions.checkout');
 Route::post('/auctions/{auctionId}/buy-now', [AuctionController::class, 'buyNow'])->name('auctions.buyNow');
+Route::post('/auctions/{auctionId}/wishlist', [AuctionController::class, 'wishlist'])->name('auctions.wishlist');

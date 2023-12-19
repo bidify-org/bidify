@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateAddress;
 use App\Models\Auction;
+use App\Models\Wishlist;
 
 class ProfileController extends Controller
 {
@@ -50,8 +51,10 @@ class ProfileController extends Controller
         return redirect()->route('profile.index');
     }
 
-    public function wishlist(){
-        $data = Auction::orderBy('created_at', 'desc')->limit(9)->get();
-        return view('profile.wishlist')->with('data', $data);
+    public function wishlist()
+    {
+        $wishlists = Wishlist::where('user_id', auth()->user()->id)->with('auction')->get();
+        $recommendations = Auction::orderBy('created_at', 'desc')->limit(9)->get();
+        return view('profile.wishlist')->with(compact('wishlists', 'recommendations'));
     }
 }
