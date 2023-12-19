@@ -12,12 +12,12 @@ return new class extends Migration {
     {
         Schema::create('auctions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('seller_id')->constrained('users');
-            $table->foreignId('winner_id')->nullable()->constrained('users');
+            $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('winner_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->string('image_url');
-            $table->unsignedInteger('asking_price');
+            $table->unsignedBigInteger('asking_price');
             $table->timestamp('ends_at');
             $table->timestamps();
         });

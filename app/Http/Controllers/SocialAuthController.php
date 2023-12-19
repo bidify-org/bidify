@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UserAlreadyRegistered;
 use App\Models\SocialAccount;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -39,13 +40,17 @@ class SocialAuthController extends Controller
         try {
             // Get the social user from the provider after they have been redirected
             $socialUser = Socialite::driver($provider)->user();
+
+            $account = $this->findOrCreateUser($socialUser, $provider);
+        } catch (UserAlreadyRegistered $e) {
+            return redirect()->route('auth.login')->withErrors([
+                'message' => $e->getMessage(),
+            ]);
         } catch (\Exception $e) {
             return redirect()->route('auth.login')->withErrors([
                 'message' => 'Unable to authenticate with ' . $provider . '. Please try again.',
             ]);
         }
-
-        $account = $this->findOrCreateUser($socialUser, $provider);
 
         Auth::login($account, true);
 
@@ -54,8 +59,9 @@ class SocialAuthController extends Controller
 
     private function findOrCreateUser($socialUser, $provider)
     {
+        // Check if social account is already registered
         $account = SocialAccount::where([
-            'provider' => SocialAccount::SERVICE_GOOGLE,
+            'provider' => $provider,
             'provider_user_id' => $socialUser->id,
         ])->first();
 
@@ -63,21 +69,25 @@ class SocialAuthController extends Controller
             return $account->user;
         }
 
-        $user = User::where('email', $socialUser->email)->first();
+        $existingUser = User::where('email', $socialUser->email)->first();
 
-        if (is_null($user)) {
-            $user = User::create([
-                'username' => Str::snake($socialUser->name),
-                'name' => $socialUser->name,
-                'email' => $socialUser->email,
-            ]);
+        // We need to check if a user with the same email address already exists
+        // If so, we need to cancel the login process since it could be a hijack attempt
+        if ($existingUser) {
+            throw new UserAlreadyRegistered('There is already a user registered with the email address');
         }
 
-        $user->socialAccounts()->create([
+        $newUser = User::create([
+            'username' => Str::snake($socialUser->name),
+            'name' => $socialUser->name,
+            'email' => $socialUser->email,
+        ]);
+
+        $newUser->socialAccounts()->create([
             'provider' => $provider,
             'provider_user_id' => $socialUser->id,
         ]);
 
-        return $user;
+        return $newUser;
     }
 }

@@ -16,6 +16,8 @@ class Auction extends Model
         'description',
         'image_url',
         'asking_price',
+        'buy_now_price',
+        'top_bid_amount',
         'ends_at',
         'created_at',
         'updated_at'
@@ -25,6 +27,11 @@ class Auction extends Model
         'ends_at' => 'datetime',
     ];
 
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
+
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
@@ -33,5 +40,10 @@ class Auction extends Model
     public function winner()
     {
         return $this->belongsTo(User::class, 'winner_id');
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
     }
 }

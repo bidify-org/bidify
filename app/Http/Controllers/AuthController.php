@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthLoginRequest;
+use App\Http\Requests\AuthRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,85 +12,41 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'username' => 'required|string|max:255|unique:users,username',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-
-        if ($validation->fails()) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $validation->errors(),
-            ], 422);
-        }
-
-        $user = User::create([
-            'username' => $validation->validated()['username'],
-            'name' => $validation->validated()['name'],
-            'email' => $validation->validated()['email'],
-            'password' => bcrypt($validation->validated()['password']),
-        ]);
-        $userToken = $user->createToken('auth-token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Successfully registered',
-            'user' => $user,
-            'token' => $userToken,
-        ], 201);
-    }
-
     public function loginForm()
     {
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(AuthLoginRequest $request)
     {
-        $validation = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
-
-        if ($validation->fails()) {
-            return response()->json([
-                'message' => 'Validation failed',
-                'errors' => $validation->errors(),
-            ], 422);
-        }
-
-        $data = $validation->validated();
-
-        if (!Auth::attempt($data)) {
-            return response()->json([
+        $validated = $request->validated();
+        if (!Auth::attempt($validated)) {
+            return redirect()->route('auth.login')->withErrors([
                 'message' => 'Invalid credentials',
-            ], 401);
+            ]);
         }
 
-        $user = User::where('email', $data['email'])->first();
-        $userToken = $user->createToken('access_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Successfully logged in',
-            'user' => $user,
-            'token' => $userToken,
-        ], 200);
+        return redirect()->route('home');
     }
 
-    public function verify(Request $request)
+
+    public function registerForm()
     {
-        return response()->json([
-            'message' => 'Successfully verified',
-            'user' => $request->user(),
-        ], 200);
+        return view('auth.register');
+    }
+
+    public function register(AuthRegisterRequest $request)
+    {
+        $validated = $request->validated();
+        $user = User::create($validated);
+        Auth::login($user);
+
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
+        auth()->logout();
 
         return redirect()->route('auth.login');
     }

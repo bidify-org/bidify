@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuctionStoreRequest;
 use App\Models\Auction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Bid;
+use DB;
 
 class AuctionController extends Controller
 {
@@ -23,7 +23,7 @@ class AuctionController extends Controller
      */
     public function create()
     {
-        return view('example.create-auction');
+        return view('auction.create-auction');
     }
 
     /**
@@ -39,13 +39,82 @@ class AuctionController extends Controller
         $auction->title = $validated['title'];
         $auction->description = $validated['description'];
         $auction->asking_price = $validated['asking_price'];
+        $auction->buy_now_price = $validated['buy_now_price'];
+        $auction->top_bid_amount = $validated['asking_price'];
         $auction->ends_at = $validated['ends_at'];
 
         $path = $request->file('image')->store('public/images');
-        $auction->image_url = Storage::url($path);
+        $auction->image_url = $path;
         $auction->save();
 
         return redirect()->route('auctions.index');
+    }
+
+    public function closeAuction(string $id)
+    {
+        $auction = Auction::find($id);
+        if (!$auction) {
+            abort(404);
+        }
+
+        $topBidder = Bid::where('auction_id', $id)->latest()->first();
+
+        $auction->winner_id = $topBidder->user_id;
+        $auction->save();
+
+        return redirect()->route('auctions.show', $id)->with('success', 'Auction closed successfully');
+    }
+
+    public function checkout(string $id)
+    {
+        $auction = Auction::find($id);
+        $recommendations = Auction::orderBy('created_at', 'desc')->limit(4)->get();
+        return view('auction.checkout')->with(compact('auction', 'recommendations'));
+    }
+
+    public function buyNow(string $id)
+    {
+        $auction = Auction::find($id);
+        if (!$auction) {
+            abort(404);
+        }
+
+        DB::transaction(function () use ($auction, $id) {
+            // set the winner to the current user
+            $auction->winner_id = auth()->user()->id;
+            $auction->top_bid_amount = $auction->buy_now_price;
+            $auction->save();
+
+            // add the bid to the database
+            $bid = new Bid();
+            $bid->user_id = auth()->user()->id;
+            $bid->auction_id = $id;
+            $bid->amount = $auction->buy_now_price;
+            $bid->save();
+        });
+
+        return redirect()->route('auctions.show', $id);
+    }
+
+    public function wishlist(string $id)
+    {
+        $auction = Auction::find($id);
+        if (!$auction) {
+            abort(404);
+        }
+
+        // if the auction is already wishlisted, un-wishlist it
+        if ($auction->wishlists()->where('user_id', auth()->user()->id)->exists()) {
+            $auction->wishlists()->where('user_id', auth()->user()->id)->delete();
+            return redirect()->route('auctions.show', $id)->with('success', 'Removed from wishlist');
+        }
+
+        $auction->wishlists()->create([
+            'user_id' => auth()->user()->id,
+            'auction_id' => $id
+        ]);
+
+        return redirect()->route('auctions.show', $id)->with('success', 'Added to wishlist');
     }
 
     /**
@@ -54,27 +123,15 @@ class AuctionController extends Controller
     public function show(string $id)
     {
         $auction = Auction::find($id);
-
         if (!$auction) {
             abort(404);
         }
-        return view('example.show-auction')->with('auction', $auction);
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $wishlisted = $auction->wishlists()->where('user_id', auth()->user()->id)->exists();
+        $minBidAmount = ceil($auction->top_bid_amount + ($auction->top_bid_amount * 0.1));
+        $data = Auction::orderBy('created_at', 'desc')->limit(12)->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return view('auction.show-auction')->with(compact('auction', 'minBidAmount', 'data', 'wishlisted'));
     }
 
     /**

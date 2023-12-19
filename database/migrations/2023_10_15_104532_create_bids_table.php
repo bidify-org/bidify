@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,9 @@ return new class extends Migration
     {
         Schema::create('bids', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('auction_id')->constrained('auctions');
-            $table->unsignedInteger('amount');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('auction_id')->constrained('auctions')->onDelete('cascade');
+            $table->unsignedBigInteger('amount');
             $table->timestamps();
         });
     }
