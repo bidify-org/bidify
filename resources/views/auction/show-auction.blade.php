@@ -14,7 +14,7 @@
 
                 {{-- button wishlist --}}
                 <div class="mt-1 flex justify-center gap-10 py-4 px-2 border-gray-3 border rounded-b-[10px]">
-                    <button class="flex items-center gap-2 w-[45%] justify-center">
+                    <button class="flex items-center gap-2 w-[48%] justify-center">
                         Wishlist
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -26,9 +26,9 @@
 
                     </button>
 
-                    <div class="border-l border-gray-3 -[w10%] flex justify-center"></div>
+                    <div class="border-l border-gray-3 w-[1%] flex justify-center"></div>
 
-                    <button class="flex items-center gap-2 w-[45%] justify-center">
+                    <button class="flex items-center gap-2 w-[48%] justify-center">
                         Share
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
