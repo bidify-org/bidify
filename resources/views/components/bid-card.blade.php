@@ -26,27 +26,8 @@
     </div>
 
     <script>
-        // JavaScript countdown logic
-        const endDateTime = new Date("{{ $endsAt }}").getTime();
-        const countdownElement = document.getElementById("countdown_{{ $ref }}");
-
-        function updateCountdown() {
-            const currentTime = new Date().getTime();
-            const timeDifference = Math.max(endDateTime - currentTime, 0);
-
-            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-            countdownElement.innerText = `${days} Days | ${hours}:${minutes}:${seconds}`;
-        }
-
-        // Update countdown every second
-        setInterval(updateCountdown, 1000);
-
-        // Initial update
-        updateCountdown();
+        @push('scripts')
+        triggerCountdown('{{ $endsAt }}', 'countdown_{{ $ref }}');
+        @endpush
     </script>
-
 </a>

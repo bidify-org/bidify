@@ -9,7 +9,7 @@ This is the backend repository for the Bidify project. IT is written in PHP and 
 Clone the repository
 
 ```bash
-git clone https://github.com/bidify-org/bidify-backend.git
+git clone https://github.com/bidify-org/bidify.git
 ```
 
 Install dependencies
@@ -30,6 +30,12 @@ Run the migrations
 
 ```bash
 php artisan migrate
+```
+
+Create storage link
+
+```bash
+php artisan storage:link
 ```
 
 Start the server
