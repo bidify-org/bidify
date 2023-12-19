@@ -22,6 +22,33 @@
     <x-footer />
 </body>
 <script src="/js/script.js"></script>
+<script type="text/javascript">
+    function triggerCountdown(endsAt, id) {
+        const endDateTime = new Date(endsAt).getTime();
+        const countdownElement = document.getElementById(id);
+
+        function updateCountdown() {
+            const currentTime = new Date().getTime();
+            const timeDifference = Math.max(endDateTime - currentTime, 0);
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            function leftFillNum(num, targetLength) {
+               return num.toString().padStart(targetLength, "0");
+            }
+            countdownElement.innerText = `${leftFillNum(days, 2)} Days | ${leftFillNum(hours, 2)}:${leftFillNum(minutes, 2)}:${leftFillNum(seconds, 2)}`;
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+
+        // Initial update
+        updateCountdown();
+    }
 @stack('scripts')
+</script>
 
 </html>
